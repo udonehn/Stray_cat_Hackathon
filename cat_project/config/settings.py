@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
+
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps')) #apps 폴더를 사용할 수 있게 해주는 코드
 
 INSTALLED_APPS = [
     'django.contrib.admin',
