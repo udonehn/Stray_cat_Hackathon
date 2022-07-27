@@ -11,13 +11,13 @@
     <!-- 지도 -->
     <div id="map" style="width:500px;height:400px;"></div>
 
-    <!-- 지도 생성하는 스크립트 코드 건들면 안댐 -->
+    <!-- 지도 생성하는 스크립트 코드, 건들면 안댐 -->
     <script type="text/javascript"src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
     <script>
         var container = document.getElementById('map');
         var options = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3
+            center: new kakao.maps.LatLng(37.638596384798, 127.10767285991),
+            level: 3 //지도 최초 표시될 때 확대 정도
         };
         var map = new kakao.maps.Map(container, options);
     </script>
