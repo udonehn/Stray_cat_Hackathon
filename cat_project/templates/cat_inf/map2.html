@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>고양이 생성</title>
+
+</head>
+
+<body>
+    <div id="map" style="width:500px;height:400px;"></div> <!-- 지도 박스 -->
+    <p><em>지도를 클릭해주세요!</em></p>
+    <div id="clickLatlng"></div>
+
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31"></script>
+    <script>
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 지도를 클릭한 위치에 표출할 마커입니다
+        var marker = new kakao.maps.Marker({
+            // 지도 중심좌표에 마커를 생성합니다                             이거 마커 위치를 사용자 위치로 설정하도록 해야함
+            position: map.getCenter()
+        });
+        // 지도에 마커를 표시합니다
+        marker.setMap(map);
+
+        // 지도에 클릭 이벤트를 등록합니다
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+            // 클릭한 위도, 경도 정보를 가져옵니다 
+            var latlng = mouseEvent.latLng;
+
+            // 마커 위치를 클릭한 위치로 옮깁니다
+            marker.setPosition(latlng);
+
+            var latitude = latlng.getLat();
+            var longitude = latlng.getLng();
+            
+            document.getElementById('latitude').value = latitude
+            document.getElementById('longitude').value = longitude
+        });
+    </script>
+    <div class="" style="border: 1px; border-color: black;">
+        <h1>정보 입력</h1>
+        <form method="post" action="{% url 'map2' %}">
+            {% csrf_token %}
+            이름: <br>
+            <input name="catname" type="text">
+            <br>
+            정보2: <br>
+            <input name="cat_inf1" type="text">
+            <br>
+            정보3: <br>
+            <input name="cat_inf2" type="text">
+            <br>
+            정보4: <br>
+            <input name="cat_inf3" type="text">
+            <input id="latitude" name="latitude" type="hidden" value="">   <!-- 위도 보내는 부분 -->
+            <input id="longitude" name="longitude" type="hidden" value=""> <!-- 경도 보내는 부분 -->
+            <br><br>
+            <input type="submit" class="" value="등록">
+        </form>
+    </div>
+</body>
+
+</html>

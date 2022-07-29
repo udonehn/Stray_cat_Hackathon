@@ -11,8 +11,9 @@
     <!-- 지도 -->
     <div id="map" style="width:500px;height:400px;"></div>
 
-    <!-- 지도 생성하는 스크립트 코드, 건들면 안댐 -->
-    <script type="text/javascript"src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
+    <!-- 지도 생성하는 스크립트 코드 -->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
     <script>
         var container = document.getElementById('map');
         var options = {
@@ -21,8 +22,10 @@
         };
         var map = new kakao.maps.Map(container, options);
     </script>
-
+    
     <a href="{% url 'login' %}">로그인 페이지</a> <!-- 로그인 페이지 링크 -->
+    <br><br><br>
+    <a href="{% url 'map2' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
 </body>
 
 </html>
