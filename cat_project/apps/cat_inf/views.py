@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from .models import Blog
 def map2(request):
     return render(request,'cat_inf/map2.html')
 

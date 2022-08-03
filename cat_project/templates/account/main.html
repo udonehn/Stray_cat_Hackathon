@@ -8,6 +8,13 @@
 <body>
     <h1>메인페이지1</h1>
 
+    {% if user.is_authenticated %}
+    <div>환영합니다{{user.username}}님</div>
+    <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+    <a href="{% url 'login' %}">로그인</a>
+    {% endif %}
+
     <!-- 지도 -->
     <div id="map" style="width:500px;height:400px;"></div>
 
@@ -23,7 +30,7 @@
         var map = new kakao.maps.Map(container, options);
     </script>
     
-    <a href="{% url 'login' %}">로그인 페이지</a> <!-- 로그인 페이지 링크 -->
+    <!-- <a href="{% url 'login' %}">로그인 페이지</a> 로그인 페이지 링크 -->
     <br><br><br>
     <a href="{% url 'map2' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
 </body>
