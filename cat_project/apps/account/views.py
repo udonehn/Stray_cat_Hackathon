@@ -5,14 +5,23 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from cat_inf.models import Cat
-import json
+from django.http import HttpResponse
+from django.core import serializers
+
+def getApi(request):
+    cats = Cat.objects.all()
+    cats_list = serializers.serialize('json', cats)
+    return HttpResponse(cats_list, content_type="text/json-comment-filtered")
+
+def apiTest(request):
+    return render(request, 'account/apiTest.html')
 
 def main(request):
     cats = Cat.objects.all()
     count = Cat.objects.count()
     content = {
         "cats":cats,
-        "cats_js":json.dumps([cat.json() for cat in cats])
+        "count":count
     }
     return render(request,'account/main.html',content)
 

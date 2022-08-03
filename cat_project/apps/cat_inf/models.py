@@ -13,15 +13,4 @@ class Cat(models.Model):
     def __str__(self):
         return self.name
     
-    def to_json(self):
-    	return {
-            "name": self.name,
-            "date": self.date,
-            "info2": self.info2,
-            "info3": self.info3,
-            "info4": self.info4,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
-        }
-    
     #미완성, 사진 업로드 구현 필요

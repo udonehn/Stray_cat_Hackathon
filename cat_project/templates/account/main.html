@@ -7,8 +7,9 @@
 
 <body>
     <h1>메인페이지1</h1>
-
-    {{cats}}
+    {% for c in cats %}
+    {{c.date}}
+    {% endfor %}
     {{count}}
     {{c}}
     {% if user.is_authenticated %}
@@ -20,7 +21,7 @@
 
     <!-- 지도 -->
     <div id="map" style="width:500px;height:400px;"></div>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- 지도 생성하는 스크립트 코드 -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
@@ -32,22 +33,56 @@
         };
         var map = new kakao.maps.Map(container, options);
 
-        var position = [];
+        
+        var positions = [];
 
-        for(var i=0; i<{{count}}; i++){
-            position.push({name:cats.name, latlng: new kakao.maps.LatLng(cats.latitude, cats.longitude)});
+        $.ajax({
+            url: "{% url 'getApi' %}",
+            dataType: "json",
+            success: function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    positions.push({
+                        title: data[i].fields.name,
+                        latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude)
+                    });
+                }
+            },
+            error: function (request, status, error) {
+                console.log('실패');
+            },
+            async: false
+        });
+        
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+        for (var i = 0; i < positions.length; i++) {
+
+            // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(24, 35);
+
+            // 마커 이미지를 생성합니다    
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng, // 마커를 표시할 위치
+                title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                image: markerImage // 마커 이미지 
+            });
         }
     </script>
 
-     <!-- 마커 생성 테스트 코드 시작 -->
-    <div id = "tagArea">
+    <!-- 마커 생성 테스트 코드 시작 -->
+    <div id="tagArea">
     </div>
     <script>
-        let cats = JSON.parse("{{ cats_js | escapejs }}");
-        document.write(cats);
+
         let tagArea = document.getElementById('tagArea');
         var new_pTag = [];
-        for(a=0;a<{{count}};a++){ //오류 난다고 빨간 밑줄 나와도 오류 아님
+        for (a = 0; a < 5; a++) { //오류 난다고 빨간 밑줄 나와도 오류 아님
             new_pTag[a] = document.createElement('p');
             new_pTag[a].setAttribute('class', 'pTag');
             new_pTag[a].innerHTML = ". 추가된 p태그";
