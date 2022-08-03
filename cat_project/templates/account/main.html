@@ -8,6 +8,9 @@
 <body>
     <h1>메인페이지1</h1>
 
+    {{cats}}
+    {{count}}
+    {{c}}
     {% if user.is_authenticated %}
     <div>환영합니다{{user.username}}님</div>
     <a href="{% url 'logout' %}">로그아웃</a>
@@ -28,8 +31,32 @@
             level: 3 //지도 최초 표시될 때 확대 정도
         };
         var map = new kakao.maps.Map(container, options);
+
+        var position = [];
+
+        for(var i=0; i<{{count}}; i++){
+            position.push({name:cats.name, latlng: new kakao.maps.LatLng(cats.latitude, cats.longitude)});
+        }
     </script>
-    
+
+     <!-- 마커 생성 테스트 코드 시작 -->
+    <div id = "tagArea">
+    </div>
+    <script>
+        let cats = JSON.parse("{{ cats_js | escapejs }}");
+        document.write(cats);
+        let tagArea = document.getElementById('tagArea');
+        var new_pTag = [];
+        for(a=0;a<{{count}};a++){ //오류 난다고 빨간 밑줄 나와도 오류 아님
+            new_pTag[a] = document.createElement('p');
+            new_pTag[a].setAttribute('class', 'pTag');
+            new_pTag[a].innerHTML = ". 추가된 p태그";
+            tagArea.appendChild(new_pTag[a]);
+        }
+    </script>
+    <!-- 마커 생성 테스트 코드 끝 -->
+
+
     <!-- <a href="{% url 'login' %}">로그인 페이지</a> 로그인 페이지 링크 -->
     <br><br><br>
     <a href="{% url 'map2' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->

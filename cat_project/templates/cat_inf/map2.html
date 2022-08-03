@@ -53,18 +53,18 @@
         <form method="post" action="{% url 'map2' %}">
             {% csrf_token %}
             이름: <br>
-            <input name="catname" type="text">
+            <input name="name" type="text">
             <br>
             정보2: <br>
-            <input name="cat_inf1" type="text">
+            <input name="info2" type="text">
             <br>
             정보3: <br>
-            <input name="cat_inf2" type="text">
+            <input name="info3" type="text">
             <br>
             정보4: <br>
-            <input name="cat_inf3" type="text">
-            <input id="latitude" name="latitude" type="hidden" value="">   <!-- 위도 보내는 부분 -->
-            <input id="longitude" name="longitude" type="hidden" value=""> <!-- 경도 보내는 부분 -->
+            <input name="info4" type="text">
+            <input id="latitude" name="latitude" type="hidden" value=33.450701>   <!-- 위도 보내는 부분 -->
+            <input id="longitude" name="longitude" type="hidden" value=126.570667> <!-- 경도 보내는 부분 -->
             <br><br>
             <input type="submit" class="" value="등록">
         </form>

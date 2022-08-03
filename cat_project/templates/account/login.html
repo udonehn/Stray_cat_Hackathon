@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
     <meta charset="UTF-8">
     <title>login page</title>
@@ -9,7 +8,12 @@
     <h1>로그인</h1>
     <form action = "{% url 'login' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.label }}
+            {{field}}
+        </div>
+      {% endfor %}
         <button type="submit">로그인</button>
     </form>
     <!--비밀번호가 일치하지 않을 시 경고 알림 필요-->

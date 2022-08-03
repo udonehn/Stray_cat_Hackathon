@@ -4,9 +4,17 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
+from cat_inf.models import Cat
+import json
 
 def main(request):
-    return render(request,'account/main.html')
+    cats = Cat.objects.all()
+    count = Cat.objects.count()
+    content = {
+        "cats":cats,
+        "cats_js":json.dumps([cat.json() for cat in cats])
+    }
+    return render(request,'account/main.html',content)
 
 def login(request):
     if request.method == 'POST':
