@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static '/css/example.css' %}">
 </head>
 
 <body>
@@ -21,7 +23,7 @@
 
     <!-- 지도 -->
     <div id="map" style="width:500px;height:400px;"></div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> <!-- Ajax 관련 코드 -->
     <!-- 지도 생성하는 스크립트 코드 -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
