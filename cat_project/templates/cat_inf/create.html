@@ -50,7 +50,7 @@
     </script>
     <div class="" style="border: 1px; border-color: black;">
         <h1>정보 입력</h1>
-        <form method="post" action="{% url 'create' %}">
+        <form method="post" action="{% url 'create' %}" enctype="multipart/form-data">
             {% csrf_token %}
             이름: <br>
             <input name="name" type="text">
@@ -63,10 +63,14 @@
             <br>
             정보4: <br>
             <input name="info4" type="text">
+            <br>
+            사진 업로드 : <br>
+            <input name="photo" type="file">
+
             <input id="latitude" name="latitude" type="hidden" value=37.6385963847980>   <!-- 위도 보내는 부분 -->
             <input id="longitude" name="longitude" type="hidden" value=127.1076728599100> <!-- 경도 보내는 부분 -->
             <br><br>
-            <input type="submit" class="" value="등록"> <!-- 사진 등록 기능 구현 필요 -->
+            <input type="submit" class="" value="등록">
         </form>
     </div>
 </body>

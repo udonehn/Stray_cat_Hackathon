@@ -4,7 +4,7 @@ from .models import Cat
 from django.utils import timezone
 
 def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
-    if(request.method == 'POST'):
+    if(request.method == 'POST' or request.method =='FILES'):
         post = Cat()
         post.name = request.POST['name']
         post.date = timezone.now()
@@ -13,6 +13,8 @@ def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
         post.info4 = request.POST['info4']
         post.latitude = request.POST['latitude']
         post.longitude = request.POST['longitude']
+        post.photo = request.FILES['photo']
         post.save()
+        
         return redirect('main')
     return render(request,'cat_inf/create.html')
