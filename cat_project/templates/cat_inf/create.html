@@ -50,7 +50,7 @@
     </script>
     <div class="" style="border: 1px; border-color: black;">
         <h1>정보 입력</h1>
-        <form method="post" action="{% url 'map2' %}">
+        <form method="post" action="{% url 'create' %}">
             {% csrf_token %}
             이름: <br>
             <input name="name" type="text">

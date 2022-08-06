@@ -1,10 +1,10 @@
-{% load static %}
+{% load static %} <!-- static 파일 적용을 위한 코드 -->
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static '/css/example.css' %}">
+    <link rel="stylesheet" href="{% static '/css/example.css' %}"> <!-- css 파일 적용을 위한 코드, static 파일 안에서의 경로를 적으면 됨-->
 </head>
 
 <body>
@@ -96,7 +96,7 @@
 
     <!-- <a href="{% url 'login' %}">로그인 페이지</a> 로그인 페이지 링크 -->
     <br><br><br>
-    <a href="{% url 'map2' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
+    <a href="{% url 'create' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
 </body>
 
 </html>

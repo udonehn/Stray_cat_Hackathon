@@ -18,5 +18,5 @@ from . import views
 
 
 urlpatterns = [
-    path('map2/', views.map2, name = 'map2'),
+    path('create/', views.create, name = 'create'),
 ]

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Cat
 from django.utils import timezone
 
-def map2(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
+def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
     if(request.method == 'POST'):
         post = Cat()
         post.name = request.POST['name']
@@ -15,4 +15,4 @@ def map2(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
         post.longitude = request.POST['longitude']
         post.save()
         return redirect('main')
-    return render(request,'cat_inf/map2.html')
+    return render(request,'cat_inf/create.html')
