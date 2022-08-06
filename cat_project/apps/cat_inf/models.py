@@ -9,8 +9,7 @@ class Cat(models.Model):
     info4 = models.CharField(max_length = 100)      
     latitude = models.DecimalField(max_digits = 17, decimal_places = 13)
     longitude = models.DecimalField(max_digits = 17, decimal_places = 13)
+    photo = models.ImageField(blank=True, null=True, upload_to='cat_photo')
     #어드민 창에서 데이터 name 필드를 이름으로 쓰는 코드
     def __str__(self):
         return self.name
-    
-    #미완성, 사진 업로드 구현 필요
