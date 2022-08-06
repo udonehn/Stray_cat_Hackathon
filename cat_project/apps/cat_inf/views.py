@@ -2,6 +2,9 @@ import imp
 from django.shortcuts import render, redirect
 from .models import Cat
 from django.utils import timezone
+from cat_inf.models import Cat
+from django.http import HttpResponse
+from django.core import serializers
 
 def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
     if(request.method == 'POST' or request.method =='FILES'):
@@ -18,3 +21,11 @@ def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
         
         return redirect('main')
     return render(request,'cat_inf/create.html')
+
+def getApi(request):
+    cats = Cat.objects.all()
+    cats_list = serializers.serialize('json', cats)
+    return HttpResponse(cats_list, content_type="text/json-comment-filtered")
+
+def apiTest(request):
+    return render(request, 'cat_inf/apiTest.html')

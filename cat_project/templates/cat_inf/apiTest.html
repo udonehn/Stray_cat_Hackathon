@@ -28,15 +28,24 @@
         dataType: "json",
         success: function (data) {
             var apiTest = "";
+            var plus = "";
             for (var i = 0; i < data.length; i++) {
+                const data1 = $.trim(data[i].fields.photo);
                 apiTest += "<tr>"
                 apiTest += "<td>" + data[i].pk + "</td>"
                 apiTest += "<td>" + data[i].fields.name + "</td>"
                 apiTest += "<td>" + data[i].fields.date + "</td>"
-                apiTest += "<td>" + data[i].fields.latitude + "</td>"
+                apiTest += "<td>" + data[i].fields.photo + "</td>"
                 apiTest += "</tr>"
+                if(data1 == "cat_photo/29.jpg"){
+                    plus += "<p>" + data[i].fields.photo + "</p>"
+                }
+                else{
+                    console.log('실패');
+                }
             }
             $('[id="apiTest"]').html(apiTest);
+            $('[id="apiTest"]').append(plus);
         },
         error: function (request, status, error) {
             console.log('실패');
