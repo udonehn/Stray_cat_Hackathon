@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400&display=swap');
+
+
+h1 {
+  font-family : "Gaegu", serif;
+  font-size : 40px;
+  background-color : #fcbbbb;
+  margin : 10px;
+  border-radius : 20px;
+  padding : 10px;
+  
+}
+
+form {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  position : relative;
+  bottom : -50px; 
+}
+
+input[type=text] {
+  border : solid #fcbbbb;
+  width : 150px;
+  height : 20px;
+}
+
+input[type=password] {
+  border : solid #fcbbbb;
+  width : 150px;
+  height : 20px;
+}
+
+input[type=email] {
+  border : solid #fcbbbb;
+  width : 150px;
+  height : 20px;
+}
+
+input[type=submit] {
+  background-color : #fcbbbb;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  font-weight:bold;
+  width: 160px; 
+  height: 40px;
+}
+
+input[type=submit]:hover {
+  background-color : #fcbbbb;
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  font-weight : bold;
+  width : 160px; 
+  height : 40px;
+  cursor : pointer;
+}
+
