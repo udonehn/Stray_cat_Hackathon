@@ -59,7 +59,7 @@
 
         for (var i = 0; i < positions.length; i++) {
 
-            var imageSize = new kakao.maps.Size(24, 35); // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(32, 46.6666); // 마커 이미지의 이미지 크기 입니다
 
             var markerImage = new kakao.maps.MarkerImage(images[i], imageSize);// 마커 이미지를 생성합니다  
 
@@ -76,7 +76,9 @@
 
 
     <br><br><br>
+    {% if user.is_authenticated %}
     <a href="{% url 'create' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
+    {% endif %}
 </body>
 
 </html>

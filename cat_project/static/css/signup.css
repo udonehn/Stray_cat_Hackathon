@@ -56,3 +56,13 @@ input[type=submit]:hover {
   cursor : pointer;
 }
 
+div.box1{
+  justify-content : center; 
+  display: flex;
+}
+div.box2{
+  align-items: center; 
+  text-align: center; 
+  width: 400px; 
+  height: 500px;
+}
