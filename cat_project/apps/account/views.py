@@ -17,11 +17,21 @@ def main(request):
 
 def login(request):
     if request.method == 'POST':
+        userid = request.POST['username']
+        pwd = request.POST['password']
+        user = auth.authenticate(request, username=userid, password=pwd)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('main')
+        else:
+            return render(request, 'login.html')
+        '''
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
         return redirect('main')
         #return render(request,'account/login.html')
+        '''
     else:
         form = AuthenticationForm()
         return render(request,'account/login.html', {'form':form})

@@ -6,6 +6,7 @@
 
 <body>
     <h1>로그인</h1>
+    <!--
     <form action = "{% url 'login' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -16,9 +17,9 @@
       {% endfor %}
         <button type="submit">로그인</button>
     </form>
-    <!--비밀번호가 일치하지 않을 시 경고 알림 필요-->
+     -->
 
-    <!--
+    
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <div>
@@ -31,7 +32,7 @@
         </div>
         <button type="submit">로그인</button>
     </form>
- -->
+
     <br><br><br><br>
     <p>혹시 회원이 아니신가요?</p>
     <a href="{% url 'signup' %}">회원가입</a>
