@@ -52,18 +52,30 @@
         <h1>정보 입력</h1>
         <form method="post" action="{% url 'create' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            이름: <br>
+            이름:
             <input name="name" type="text">
-            <br>
-            정보2: <br>
-            <input name="info2" type="text">
-            <br>
-            정보3: <br>
-            <input name="info3" type="text">
-            <br>
-            정보4: <br>
-            <input name="info4" type="text">
-            <br>
+            <br><br>
+            종류: 
+            <input name="species" type="text">
+            <br><br>
+            성별:
+            <input name="sex" type="radio" value="1">암
+            <input name="sex" type="radio" value="2">수
+            <input name="sex" type="radio" value="3">모름
+            <br><br>
+            중성화 유무:
+            <input name="neutral" type="radio" value="1">유
+            <input name="neutral" type="radio" value="2" checked="checked">무
+            <input name="neutral" type="radio" value="3">모름
+            <br><br>
+            사람 경계도: 
+            <input name="alert" type="radio" value="1">상
+            <input name="alert" type="radio" value="2">중
+            <input name="alert" type="radio" value="3" checked="checked">하
+            <br><br>
+            특징: 
+            <textarea rows="5" cols="30" name="character"></textarea>
+            <br><br>
             사진 업로드 : <br>
             <input name="photo" type="file">
 
