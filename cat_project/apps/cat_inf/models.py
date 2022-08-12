@@ -17,3 +17,10 @@ class Cat(models.Model):
     #어드민 창에서 데이터 name 필드를 이름으로 쓰는 코드
     def __str__(self):
         return self.name
+
+class Image(models.Model):
+    file = models.ImageField(upload_to='cat_photo')
+    uploaded = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.pk)

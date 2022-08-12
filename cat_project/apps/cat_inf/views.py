@@ -5,21 +5,31 @@ from django.utils import timezone
 from cat_inf.models import Cat
 from django.http import HttpResponse
 from django.core import serializers
+from .forms import ImageForm
+from django.http import JsonResponse
+
+def main1(request):
+    form = ImageForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return JsonResponse({'message': 'works'})
+    context = {'form': form}
+    return render(request, 'cat_inf/main1.html', context)
 
 def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
     if(request.method == 'POST' or request.method =='FILES'):
         post = Cat()
         post.name = request.POST['name']
         post.date = timezone.now()
-        post.info2 = request.POST['info2']
-        post.info3 = request.POST['info3']
-        post.info4 = request.POST['info4']
+        post.species = request.POST['species']
+        post.sex = request.POST['sex']
+        post.neutral = request.POST['neutral']
+        post.alert = request.POST['alert']
+        post.character = request.POST['character']
         post.latitude = request.POST['latitude']
         post.longitude = request.POST['longitude']
         post.photo = request.FILES['photo']
         post.save()
-        
-        return redirect('main')
     return render(request,'cat_inf/create.html')
 
 def getApi(request):
