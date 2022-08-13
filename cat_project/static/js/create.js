@@ -29,7 +29,7 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
 
-    confirmBtn.classList.remove('not-visible')
+    //confirmBtn.classList.remove('not-visible')
     const img_data = imageInput.files[0] //입력된 이미지 파일 정보 받아옴
     const url = URL.createObjectURL(img_data) //이미지의 웹상 url 생성
     

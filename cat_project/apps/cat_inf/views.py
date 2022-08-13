@@ -29,6 +29,7 @@ def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
         post.latitude = request.POST['latitude']
         post.longitude = request.POST['longitude']
         post.photo = request.FILES['photo']
+        post.author = request.user
         post.save()
     return render(request,'cat_inf/create.html')
 
