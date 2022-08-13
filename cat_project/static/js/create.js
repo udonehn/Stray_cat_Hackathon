@@ -29,14 +29,13 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
 
-    //confirmBtn.classList.remove('not-visible')
     const img_data = imageInput.files[0] //입력된 이미지 파일 정보 받아옴
     const url = URL.createObjectURL(img_data) //이미지의 웹상 url 생성
     
     imageBox.innerHTML = `<img src="${url}" id="image" width="700px">` //이미지 박스에 이미지 표시
     var $image = $('#image') //$:jquary기호 , #:id 기호
 
-    $("imageInput[name=photo]").attr("disabled", true);
+    $(imageInput).attr("disabled", true);
 
     //image 변수에 선택된 영역 값을 담는 것 같음
     $image.cropper({
@@ -76,7 +75,7 @@ imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
                 data: fd,
                 success: function(response){
                     console.log('success')
-                    location.replace('http://127.0.0.1:8000/');  //여기 수정 필요!!!! 폼 제출 이후 다음 페이지로 넘어가기가 불가능!!!
+                    location.replace('http://127.0.0.1:8000/'); 
                 },
                 error: function(error){
                     console.log('error', error)

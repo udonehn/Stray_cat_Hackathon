@@ -1,15 +1,27 @@
-{% load static %} <!-- static 파일 적용을 위한 코드 -->
+{% load static %}<!-- static 파일 적용을 위한 코드 -->
 <!DOCTYPE html>
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static '/css/signup.css' %}"> <!-- css 파일 적용을 위한 코드, static 파일 안에서의 경로를 적으면 됨-->
+
+    <!-- Bootstrap CSS -->
+
+    <!-- Ajax -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- kakao map -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
+
+    <!-- custom css & js-->
+    <link rel="stylesheet" href="{% static '/css/signup.css' %}">
+
+    <title>메인페이지</title>
 </head>
 
 <body>
-    <h1>메인페이지1</h1>
-    
+    <h1>메인페이지</h1>
+
     {% if user.is_authenticated %}
     <div>환영합니다{{user.username}}님</div>
     <a href="{% url 'logout' %}">로그아웃</a>
@@ -17,12 +29,8 @@
     <a href="{% url 'login' %}">로그인</a>
     {% endif %}
 
-    <!-- 지도 -->
-    <div id="map" style="width:500px;height:400px;"></div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> <!-- Ajax 관련 코드 -->
-    <!-- 지도 생성하는 스크립트 코드 -->
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31&libraries=services,clusterer,drawing"></script>
+    <div id="map" style="width:500px;height:400px;"></div><!-- 지도 -->
+
     <script>
         var container = document.getElementById('map');
         var options = {
@@ -31,7 +39,6 @@
         };
         var map = new kakao.maps.Map(container, options);
 
-        
         var positions = [];
         var images = [];
 
@@ -45,8 +52,8 @@
                         title: data[i].fields.name,
                         latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude)
                     });
-                    if(data[i].fields.photo.length != 0 )
-                        images.push("{% static 'media/' %}"+ data[i].fields.photo);
+                    if (data[i].fields.photo.length != 0)
+                        images.push("{% static 'media/' %}" + data[i].fields.photo);
                     else
                         images.push("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png");
                 }
@@ -56,7 +63,24 @@
             },
             async: false
         });
+        var markers = [];
+        var level = map.getLevel();
 
+        // 마커 클러스터러를 생성합니다 
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+            minLevel: 1, // 클러스터 할 최소 지도 레벨 
+            gridSize: 40,
+            /* 클러스터 마커 이미지 수정해야함.
+            styles: [{
+                width : '53px', height : '52px',
+                background: 'url('+"{% static 'image/cluster.jpg' %}"+') no-repeat',
+                color: '#fff',
+                textAlign: 'center',
+                lineHeight: '54px'
+            }]*/
+        });
         for (var i = 0; i < positions.length; i++) {
 
             var imageSize = new kakao.maps.Size(33, 33); // 마커 이미지의 이미지 크기 입니다
@@ -70,9 +94,10 @@
                 title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image: markerImage // 마커 이미지 
             });
+            markers.push(marker)
         }
+        clusterer.addMarkers(markers);
     </script>
-
 
 
     <br><br><br>
