@@ -20,6 +20,4 @@ from . import views
 urlpatterns = [
     path('create/', views.create, name = 'create'),
     path('getApi/', views.getApi, name='getApi'),
-    path('apiTest/', views.apiTest, name='apiTest'),
-    path('main1/', views.main1, name="main1")
 ]

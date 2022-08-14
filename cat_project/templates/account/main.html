@@ -38,6 +38,7 @@
             level: 3 //지도 최초 표시될 때 확대 정도
         };
         var map = new kakao.maps.Map(container, options);
+        map.setMaxLevel(9);
 
         var positions = [];
         var images = [];
@@ -72,14 +73,15 @@
             averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
             minLevel: 1, // 클러스터 할 최소 지도 레벨 
             gridSize: 40,
-            /* 클러스터 마커 이미지 수정해야함.
+             //클러스터 마커 이미지 수정해야함.
             styles: [{
                 width : '53px', height : '52px',
-                background: 'url('+"{% static 'image/cluster.jpg' %}"+') no-repeat',
-                color: '#fff',
+                background: 'url('+"{% static 'media/74378.png' %}"+') no-repeat',
+                /*background: 'url('+"{% static 'image/cluster.jpg' %}"+') no-repeat',*/
+                color: '#fff', //글자 색
                 textAlign: 'center',
                 lineHeight: '54px'
-            }]*/
+            }]
         });
         for (var i = 0; i < positions.length; i++) {
 

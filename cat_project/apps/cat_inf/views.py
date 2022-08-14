@@ -6,15 +6,6 @@ from cat_inf.models import Cat
 from django.http import HttpResponse
 from django.core import serializers
 from .forms import ImageForm
-from django.http import JsonResponse
-
-def main1(request):
-    form = ImageForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-        return JsonResponse({'message': 'works'})
-    context = {'form': form}
-    return render(request, 'cat_inf/main1.html', context)
 
 def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
     if(request.method == 'POST' or request.method =='FILES'):
@@ -37,6 +28,3 @@ def getApi(request):
     cats = Cat.objects.all()
     cats_list = serializers.serialize('json', cats)
     return HttpResponse(cats_list, content_type="text/json-comment-filtered")
-
-def apiTest(request):
-    return render(request, 'cat_inf/apiTest.html')
