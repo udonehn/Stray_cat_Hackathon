@@ -75,7 +75,7 @@
             averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
             minLevel: 1, // 클러스터 할 최소 지도 레벨 
             gridSize: 40,
-            
+            //클러스터 스타일, 이 부분을 주석처리하면 원래 이미지로 나옴
             styles: [{
                 'width': '52px',
                 'height': '52px',
@@ -112,8 +112,6 @@
     {% if user.is_authenticated %}
     <a href="{% url 'create' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
     {% endif %}
-
-    <div style="background-image: url(../../static/image/cluster.jpg); width: 532px; height: 532px;">as</div>
 </body>
 
 </html>
