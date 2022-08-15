@@ -5,7 +5,6 @@ from django.utils import timezone
 from cat_inf.models import Cat
 from django.http import HttpResponse
 from django.core import serializers
-from .forms import ImageForm
 
 def create(request): #이거 이름 좀 잘 바꾸기 create 같은 거로
     if(request.method == 'POST' or request.method =='FILES'):
