@@ -62,3 +62,15 @@ button[type=submit]:hover {
 p {
   font-size : 18px;
 }
+/*
+div.box1{
+  justify-content : center; 
+  display: flex;
+}
+div.box2{
+  align-items: center; 
+  text-align: center; 
+  width: 400px; 
+  height: 500px;
+}
+*/

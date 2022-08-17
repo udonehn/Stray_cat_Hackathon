@@ -1,5 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <title>login page</title>
@@ -7,43 +8,46 @@
 </head>
 
 <body>
-    <h1>로그인</h1>
-    <!--
-    <form action = "{% url 'login' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group">
-            {{ field.label }}
-            {{field}}
-        </div>
-      {% endfor %}
-        <button type="submit">로그인</button>
-    </form>
-     -->
+    <div class="box1">
+        <div class="box2">
+            <h1>로그인</h1>
+            <!--
+            <form action = "{% url 'login' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label }}
+                    {{field}}
+                </div>
+            {% endfor %}
+                <button type="submit">로그인</button>
+            </form>
+            -->
+            
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div>
+                    <label>사용자 ID</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div>
+                    <label>비밀번호&nbsp;&nbsp;</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <br><br>
+                <button type="submit">로그인</button>
+            </form>
 
-    
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <div>
-            <label>사용자 ID</label>
-            <input type="text" name="username" id="username">
-        </div>
-        <div>
-            <label>비밀번호&nbsp;&nbsp;</label>
-            <input type="password" name="password" id="password">
-        </div>
-        <br><br>
-        <button type="submit">로그인</button>
-    </form>
+            <!-- 로그인 에러 메시지 출력 -->
+            {% for message in messages %}
+            <div class="alert alert-info">{{message}}</div>
+            {% endfor %}
 
-    <!-- 로그인 에러 메시지 출력 -->
-    {% for message in messages %}
-    <div class="alert alert-info">{{message}}</div>
-    {% endfor %}
-
-    <br><br><br><br>
-    <p>혹시 회원이 아니신가요?</p>
-    <a href="{% url 'signup' %}">회원가입</a>
+            <br><br><br><br>
+            <p>혹시 회원이 아니신가요?</p>
+            <a href="{% url 'signup' %}">회원가입</a>
+        </div>
+    </div>
 </body>
 
 </html>
