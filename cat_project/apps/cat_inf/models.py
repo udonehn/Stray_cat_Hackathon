@@ -14,7 +14,7 @@ class Cat(models.Model):
     longitude = models.DecimalField(max_digits = 17, decimal_places = 13)
     photo = models.ImageField(blank=True, null=True, upload_to='cat_photo')
     author = models.ForeignKey(User, on_delete=models.CASCADE ,null=True)
-
+    id = models.AutoField(primary_key=True)
     #어드민 창에서 데이터 name 필드를 이름으로 쓰는 코드
     def __str__(self):
         return self.name

@@ -55,6 +55,7 @@
                         title: data[i].fields.name,
                         latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
                         content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
+                        id: data[i].id,
                     });
                     if (data[i].fields.photo.length != 0)
                         images.push("{% static 'media/' %}" + data[i].fields.photo);
@@ -106,7 +107,7 @@
             });
             markers.push(marker)
 
-            var iwContent = `<div style="padding:5px;">${positions[i].content}</div><input type="button" value="추가 정보" onclick="showPopup();" />`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            var iwContent = `<div style="padding:5px;">${positions[i].content}</div><input type="button" value="추가 정보" onclick="showPopup(${positions[i].id});" />`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                 // 마커에 표시할 인포윈도우를 생성합니다 
@@ -126,9 +127,18 @@
 
         clusterer.addMarkers();
 
-        function showPopup(data) { 
-            window.open("d.html", "details", "width=400, height=300, left=100, top=50"); 
+        
+
+        function showPopup(id){
+        // window.name = "부모창 이름"; 
+        window.name = "main";
+        //openWin = window.open("{% url 'details' id }", "cdetails", "width=400, height=300, left=100, top=50");        게시물의 id 불러와야 함. (에러)
+        alert(id);
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+        openWin.document.getElementById("cInput").value = "asdf";
+        
         }
+
     </script>
 
     <br><br><br>
