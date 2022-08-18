@@ -34,7 +34,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    bookmarked = models.JSONField(null=True)
+    bookmarked = models.TextField(null=True)
 
     class Meta:
         db_table = 'user'

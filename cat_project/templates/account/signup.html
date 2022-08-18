@@ -11,10 +11,10 @@
     <div class="box1">
         <div class="box2">
             <h1>회원가입</h1>
-            <form method="POST" action="">
+            <form method="POST" action="{% url 'signup' %}">
                 {% csrf_token %}
                 아이디<br>
-                <input name="username" type="text">
+                <input name="name" type="text">
                 <br>
                 비밀번호<br>
                 <input name="password1" type="password">

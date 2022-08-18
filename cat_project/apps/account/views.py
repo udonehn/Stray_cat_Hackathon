@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from account.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib import messages
 from cat_inf.models import Cat
+import json
 
 def main(request):
     cats = Cat.objects.all()
@@ -18,7 +19,19 @@ def main(request):
 
 def bookmark(request):
     if(request.method == 'POST'):
-        pass
+        id_list = User.objects.filter(bookmarked)
+        cats_id = request.POST['cats_id']
+        is_marked = request.POST['is_marked']
+        mylist = json.decoder.JSONDecoder().decode(id_list)
+        if(is_marked):
+            mylist.remove(cats_id)
+        else:
+            mylist.append(cats_id)
+
+        mydic = json.dumps(mylist)
+        id_list.create(mydic)
+    return
+
 
 def mypage(request):
     pass
@@ -53,7 +66,7 @@ def signup(request):
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
             user = User.objects.create_user(
-                                            username=request.POST['username'],
+                                            name=request.POST['name'],
                                             password=request.POST['password1'],
                                             email=request.POST['email'],)
             auth.login(request, user)

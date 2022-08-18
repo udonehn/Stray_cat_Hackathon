@@ -29,16 +29,18 @@
 <body>
 
     <h1>메인페이지</h1>
-    
+
     {% if user.is_authenticated %}
-    <div>환영합니다{{user.username}}님</div>
+    <div>환영합니다 {{user.name}}님</div>
     <a href="{% url 'logout' %}">로그아웃</a>
     {% else %}
     <a href="{% url 'login' %}">로그인</a>
     {% endif %}
 
+    {% csrf_token %}
+    <br><br>
     <div id="map" style="width:500px;height:400px;"></div><!-- 지도 -->
-
+    
     <script>
 
         var container = document.getElementById('map');
@@ -54,48 +56,24 @@
         var posArr = [];
         var returnValue;
         var long
-
+    </script>
+    {% if user.is_authenticated %}
+    <script>
         $.ajax({
             url: "{% url 'getApi' %}",
             dataType: "json",
             success: function (data) {
+                console.log(data)
                 for (var i = 0; i < data.length; i++) {
                     const data1 = $.trim(data[i].fields.photo);
-
-                    /* //겹치는 마커 옆으로 옮기는 로직
-                    var returnIndex = posArr.findIndex(function(arrData){ return arrData.latitude == data[i].fields.latitude && arrData.longitude == data[i].fields.longitude});
-                    //위치 정보 추가
-                    if(!(returnIndex > -1)){ 
-                        positions.push({
-                        title: data[i].fields.name,
-                        latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
-                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
-                        id: data[i].id,
-                        });
-                        posArr.push({'latitude':data[i].fields.latitude, 'longitude': data[i].fields.longitude, 'num': i});
-                    }
-                    else{
-                        long = posArr[returnIndex].longitude
-
-                        long = (parseFloat(long) + 0.00008).toString();
-                        
-                        positions.push({
-                        title: data[i].fields.name,
-                        latlng: new kakao.maps.LatLng(posArr[returnIndex].latitude, long),
-                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
-                        id: data[i].id,
-                        });
-                        posArr.push({'latitude':posArr[returnIndex].latitude, 'longitude': long, 'num': i});
-                    }
-                    */
 
                     //위치 정보 추가
                     positions.push({
                         title: data[i].fields.name,
                         latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
-                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
-                        id: data[i].id,
-                        });
+                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species} <br><div>${data[i].pk}</div>`,
+                        id: data[i].pk
+                    });
                     //이미지 정보 추가
                     if (data[i].fields.photo.length != 0)
                         images.push("{% static 'media/' %}" + data[i].fields.photo);
@@ -143,25 +121,25 @@
                 map: map, // 마커를 표시할 지도
                 position: positions[i].latlng, // 마커를 표시할 위치
                 title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                image: markerImage // 마커 이미지 
+                image: markerImage, // 마커 이미지
 
             });
             var iwContent = `<div style="padding:5px;">
                                 ${positions[i].content}<br>
                                 {% if feed.is_liked %}
-                                    <span id="favorite{{ cats.id }}" class="favorite material-icons" style="color: red; cursor: pointer"> favorite </span>
+                                    <span id="bookmark_${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark </span>
                                 {% else %}
-                                    <span id="favorite{{ cats.id }}" class="favorite material-icons" style="color: red; cursor: pointer"> favorite_border </span>
+                                    <span id="bookmark_${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark_border </span>
                                 {% endif %}
                                 <input type="button" value="추가 정보" onclick="showPopup(${positions[i].id});" />
                             </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
-                // 마커에 표시할 인포윈도우를 생성합니다 
-                var infowindow = new kakao.maps.InfoWindow({
-                    content : iwContent,
-                    removable : iwRemoveable
-                });
+            // 마커에 표시할 인포윈도우를 생성합니다 
+            var infowindow = new kakao.maps.InfoWindow({
+                content: iwContent,
+                removable: iwRemoveable
+            });
             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
             kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
 
@@ -170,45 +148,82 @@
         clusterer.addMarkers(markers);
 
         function makeOverListener(map, marker, infowindow) {
-            return function() {
+            return function () {
                 infowindow.open(map, marker);
             };
         }
-        function showPopup(id){
+        function showPopup(id) {
             // window.name = "부모창 이름"; 
             window.name = "main";
             //openWin = window.open("{% url 'details' id }", "cdetails", "width=400, height=300, left=100, top=50");        게시물의 id 불러와야 함. (에러)
             alert(id);
             // window.open("open할 window", "자식창 이름", "팝업창 옵션");
             openWin.document.getElementById("cInput").value = "asdf";
-        
         }
 
     </script>
+    {% endif %}
     <script>
-        $.ajax({
-            url: "{% url 'getApi' %}",
-            data: {
-                cats_id : cats_id,
-                is_liked : favorite_text
-            },
-            success: function (data) {
-                console.log("success")
-            },
-            error: function (request, status, error){
-                console.log("error")
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
             }
-        })
+            return cookieValue;
+        }
 
-        $(document).on('click', '.favorite', function(event) {
-            var favorite_id = event.target.id;
-            var favorite_text = $.trim($('#'+favorite_id).html())
+        var csrftoken = getCookie('csrftoken');
 
-            if(favorite_text == 'favorite'){
-                $('#'+favorite_id).html('favorite_border')
-            }else{
-                $('#'+favorite_id).html('favorite')
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        var bookmark_id;
+        var bookmark_text;
+        var marked;
+
+        //북마크 아이콘 관리
+        $(document).on('click', '.bookmark', function (event) {
+            bookmark_id = event.target.id;
+            bookmark_text = $.trim($('#' + bookmark_id).html())
+
+            if (bookmark_text == 'bookmark') {
+                $('#' + bookmark_id).html('bookmark_border')
+                marked = true;
+            } else {
+                $('#' + bookmark_id).html('bookmark')
+                marked = false;
             }
+            //북마크 정보 전달
+            $.ajax({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                type: 'POST',
+                url: "{% url 'bookmark' %}",
+                data: {
+
+                    cats_id: bookmark_id,
+                    is_marked: marked
+                },
+                success: function (data) {
+                    console.log("success")
+                },
+                error: function (request, status, error) {
+                    console.log("error")
+                }
+            })
         });
     </script>
 
