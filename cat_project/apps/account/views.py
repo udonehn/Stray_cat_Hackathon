@@ -16,6 +16,13 @@ def main(request):
     }
     return render(request,'account/main.html',content)
 
+def bookmark(request):
+    if(request.method == 'POST'):
+        pass
+
+def mypage(request):
+    pass
+
 def login(request):
     if request.method == 'POST':
         userid = request.POST['username']
