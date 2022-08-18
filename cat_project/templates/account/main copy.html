@@ -61,34 +61,6 @@
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     const data1 = $.trim(data[i].fields.photo);
-
-                    /* //겹치는 마커 옆으로 옮기는 로직
-                    var returnIndex = posArr.findIndex(function(arrData){ return arrData.latitude == data[i].fields.latitude && arrData.longitude == data[i].fields.longitude});
-                    //위치 정보 추가
-                    if(!(returnIndex > -1)){ 
-                        positions.push({
-                        title: data[i].fields.name,
-                        latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
-                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
-                        id: data[i].id,
-                        });
-                        posArr.push({'latitude':data[i].fields.latitude, 'longitude': data[i].fields.longitude, 'num': i});
-                    }
-                    else{
-                        long = posArr[returnIndex].longitude
-
-                        long = (parseFloat(long) + 0.00008).toString();
-                        
-                        positions.push({
-                        title: data[i].fields.name,
-                        latlng: new kakao.maps.LatLng(posArr[returnIndex].latitude, long),
-                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
-                        id: data[i].id,
-                        });
-                        posArr.push({'latitude':posArr[returnIndex].latitude, 'longitude': long, 'num': i});
-                    }
-                    */
-
                     //위치 정보 추가
                     positions.push({
                         title: data[i].fields.name,
@@ -148,6 +120,7 @@
             });
             var iwContent = `<div style="padding:5px;">
                                 ${positions[i].content}<br>
+                                //좋아요 표시
                                 {% if feed.is_liked %}
                                     <span id="favorite{{ cats.id }}" class="favorite material-icons" style="color: red; cursor: pointer"> favorite </span>
                                 {% else %}
@@ -186,6 +159,7 @@
 
     </script>
     <script>
+        //좋아요 표시 db에 등록
         $.ajax({
             url: "{% url 'getApi' %}",
             data: {
@@ -200,6 +174,7 @@
             }
         })
 
+        //좋아요 표시 관리
         $(document).on('click', '.favorite', function(event) {
             var favorite_id = event.target.id;
             var favorite_text = $.trim($('#'+favorite_id).html())

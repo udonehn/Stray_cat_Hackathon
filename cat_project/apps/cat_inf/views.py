@@ -1,11 +1,21 @@
+from calendar import isleap
 import imp
+from urllib import request
 from django.shortcuts import render, redirect
-from .models import Cat
 from django.utils import timezone
 from cat_inf.models import Cat
 from django.http import HttpResponse
 from django.core import serializers
 
+def post(self, request):
+    cats_id = request.data.get('cats_id', None)
+    favorite_text = request.data.get('favorite_text', True)
+
+    if favorite_text == 'favorite_border':
+        is_liked = True
+    else:
+        is_liked = False
+    request.session.session_key
 
 def create(request):
     if(request.method == 'POST' or request.method =='FILES'):
