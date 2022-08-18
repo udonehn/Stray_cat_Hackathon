@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from account.models import User
 
 #데이터베이스 Table 만드는 코드
 class Cat(models.Model):
