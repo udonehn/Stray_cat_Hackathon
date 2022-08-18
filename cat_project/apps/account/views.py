@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -53,3 +53,7 @@ def signup(request):
             return redirect('/')
         return render(request, 'account/signup.html')
     return render(request, 'account/signup.html')
+
+def details(request, cat_id):
+    cat_detail = get_object_or_404(Cat, pk=cat_id)
+    return render(request, 'details.html',{'cat_detail':cat_detail})

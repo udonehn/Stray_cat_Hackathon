@@ -23,7 +23,7 @@
 
 <body>
     <h1>메인페이지</h1>
-
+    
     {% if user.is_authenticated %}
     <div>환영합니다{{user.username}}님</div>
     <a href="{% url 'logout' %}">로그아웃</a>
@@ -44,6 +44,9 @@
 
         var positions = [];
         var images = [];
+        var posArr = [];
+        var returnValue;
+        var long
 
         $.ajax({
             url: "{% url 'getApi' %}",
@@ -51,11 +54,42 @@
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     const data1 = $.trim(data[i].fields.photo);
+
+                    /* //겹치는 마커 옆으로 옮기는 로직
+                    var returnIndex = posArr.findIndex(function(arrData){ return arrData.latitude == data[i].fields.latitude && arrData.longitude == data[i].fields.longitude});
+                    //위치 정보 추가
+                    if(!(returnIndex > -1)){ 
+                        positions.push({
+                        title: data[i].fields.name,
+                        latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
+                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
+                        id: data[i].id,
+                        });
+                        posArr.push({'latitude':data[i].fields.latitude, 'longitude': data[i].fields.longitude, 'num': i});
+                    }
+                    else{
+                        long = posArr[returnIndex].longitude
+
+                        long = (parseFloat(long) + 0.00008).toString();
+                        
+                        positions.push({
+                        title: data[i].fields.name,
+                        latlng: new kakao.maps.LatLng(posArr[returnIndex].latitude, long),
+                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
+                        id: data[i].id,
+                        });
+                        posArr.push({'latitude':posArr[returnIndex].latitude, 'longitude': long, 'num': i});
+                    }
+                    */
+
+                    //위치 정보 추가
                     positions.push({
                         title: data[i].fields.name,
                         latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
                         content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
-                    });
+                        id: data[i].id,
+                        });
+                    //이미지 정보 추가
                     if (data[i].fields.photo.length != 0)
                         images.push("{% static 'media/' %}" + data[i].fields.photo);
                     else
@@ -68,13 +102,12 @@
             async: false
         });
         var markers = [];
-        var level = map.getLevel();
 
         // 마커 클러스터러를 생성합니다 
         var clusterer = new kakao.maps.MarkerClusterer({
             map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
             averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-            minLevel: 1, // 클러스터 할 최소 지도 레벨 
+            minLevel: 2, // 클러스터 할 최소 지도 레벨 
             gridSize: 40,
             //클러스터 스타일, 이 부분을 주석처리하면 원래 이미지로 나옴
             styles: [{
@@ -91,9 +124,10 @@
                 'text-shadow': '-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000'
             }]
         });
-        for (var i = 0; i < positions.length; i++) {
 
-            var imageSize = new kakao.maps.Size(33, 33); // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(33, 33); // 마커 이미지의 이미지 크기 입니다
+
+        for (var i = 0; i < positions.length; i++) {
 
             var markerImage = new kakao.maps.MarkerImage(images[i], imageSize);// 마커 이미지를 생성합니다  
 
@@ -103,10 +137,10 @@
                 position: positions[i].latlng, // 마커를 표시할 위치
                 title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image: markerImage // 마커 이미지 
-            });
-            markers.push(marker)
 
-            var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            });
+
+            var iwContent = `<div style="padding:5px;">${positions[i].content}</div><input type="button" value="추가 정보" onclick="showPopup(${positions[i].id});" />`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                 // 마커에 표시할 인포윈도우를 생성합니다 
@@ -116,7 +150,11 @@
                 });
             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
             kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+
+            markers.push(marker)
+            
         }
+        clusterer.addMarkers(markers);
 
         function makeOverListener(map, marker, infowindow) {
             return function() {
@@ -124,7 +162,18 @@
             };
         }
 
-        clusterer.addMarkers(markers);
+        
+
+        function showPopup(id){
+            // window.name = "부모창 이름"; 
+            window.name = "main";
+            //openWin = window.open("{% url 'details' id }", "cdetails", "width=400, height=300, left=100, top=50");        게시물의 id 불러와야 함. (에러)
+            alert(id);
+            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+            openWin.document.getElementById("cInput").value = "asdf";
+        
+        }
+
     </script>
 
     <br><br><br>

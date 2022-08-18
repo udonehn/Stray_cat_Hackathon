@@ -39,7 +39,8 @@ imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
 
     //image 변수에 선택된 영역 값을 담는 것 같음
     $image.cropper({
-        aspectRatio: 1 / 1
+        aspectRatio: 1 / 1,
+        viewMode: 1,
     });
     
     var cropper = $image.data('cropper'); 
