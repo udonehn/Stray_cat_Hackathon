@@ -22,8 +22,17 @@ urlpatterns = [
     path('login/', views.login, name = 'login'),
     path('logout/', views.logout, name = 'logout'),
     path('signup/', views.signup, name = 'signup'),
+<<<<<<< HEAD
     path('mypage/', views.mypage, name = 'mypage'),
     path('bookmark/', views.bookmark, name = 'bookmark'),
+=======
+<<<<<<< Updated upstream
+>>>>>>> backend
     path('details/<int:cat_id>', views.details, name = 'details'),
+=======
+    path('mypage/', views.mypage, name = 'mypage'),
+    path('bookmark/', views.bookmark, name = 'bookmark'),
+    path('deta/<str:cat_id>/', views.deta, name = 'deta'),
+>>>>>>> Stashed changes
 
 ]

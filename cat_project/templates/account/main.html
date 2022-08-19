@@ -27,7 +27,14 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 
+=======
+<<<<<<< Updated upstream
+=======
+    "{% url 'deta' 8 %}"
+>>>>>>> Stashed changes
+>>>>>>> backend
     <h1>메인페이지</h1>
 
     {% if user.is_authenticated %}
@@ -71,8 +78,18 @@
                     positions.push({
                         title: data[i].fields.name,
                         latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
+<<<<<<< HEAD
                         content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species} <br><div>${data[i].pk}</div>`,
                         id: data[i].pk
+=======
+<<<<<<< Updated upstream
+                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species}`,
+                        id: data[i].id,
+=======
+                        content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species} <br></div>`,
+                        id: data[i].pk
+>>>>>>> Stashed changes
+>>>>>>> backend
                     });
                     //이미지 정보 추가
                     if (data[i].fields.photo.length != 0)
@@ -121,9 +138,20 @@
                 map: map, // 마커를 표시할 지도
                 position: positions[i].latlng, // 마커를 표시할 위치
                 title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+<<<<<<< HEAD
                 image: markerImage, // 마커 이미지
 
             });
+=======
+                image: markerImage // 마커 이미지 
+            });
+<<<<<<< Updated upstream
+            markers.push(marker)
+
+            var iwContent = `<div style="padding:5px;">${positions[i].content}</div><input type="button" value="추가 정보" onclick="showPopup(${positions[i].id});" />`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+=======
+            var de = Number(positions[i].id)
+>>>>>>> backend
             var iwContent = `<div style="padding:5px;">
                                 ${positions[i].content}<br>
                                 {% if feed.is_liked %}
@@ -131,8 +159,14 @@
                                 {% else %}
                                     <span id="bookmark_${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark_border </span>
                                 {% endif %}
+<<<<<<< HEAD
                                 <input type="button" value="추가 정보" onclick="showPopup(${positions[i].id});" />
                             </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+=======
+                                <button type="botton" onclick="location.href='/account/deta/${de}'">추가 정보</button>
+                            </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+>>>>>>> Stashed changes
+>>>>>>> backend
                 iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
             // 마커에 표시할 인포윈도우를 생성합니다 
@@ -152,6 +186,7 @@
                 infowindow.open(map, marker);
             };
         }
+<<<<<<< HEAD
         function showPopup(id) {
             // window.name = "부모창 이름"; 
             window.name = "main";
@@ -159,7 +194,34 @@
             alert(id);
             // window.open("open할 window", "자식창 이름", "팝업창 옵션");
             openWin.document.getElementById("cInput").value = "asdf";
+=======
+<<<<<<< Updated upstream
+
+        clusterer.addMarkers();
+
+        
+
+        function showPopup(id){
+        // window.name = "부모창 이름"; 
+        window.name = "main";
+        //openWin = window.open("{% url 'details' id }", "cdetails", "width=400, height=300, left=100, top=50");        게시물의 id 불러와야 함. (에러)
+        alert(id);
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+        openWin.document.getElementById("cInput").value = "asdf";
+        
+=======
+        /*
+        function showPopup(id) {
+            // window.name = "부모창 이름"; 
+            window.name = "main";
+            openWin = window.open("{% url 'details' id }", "cdetails", "width=400, height=300, left=100, top=50");       // 게시물의 id 불러와야 함. (에러)
+            //alert(id);
+            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+            openWin.document.getElementById("cInput").value = "asdf";
+>>>>>>> Stashed changes
+>>>>>>> backend
         }
+        */
 
     </script>
     {% endif %}
