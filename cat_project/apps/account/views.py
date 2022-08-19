@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate
-from account.models import User
+from account.models import User,Bookmark
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib import messages
@@ -19,18 +19,20 @@ def main(request):
 
 def bookmark(request):
     if(request.method == 'POST'):
-        id_list = User.objects.filter(bookmarked)
-        cats_id = request.POST['cats_id']
         is_marked = request.POST['is_marked']
-        mylist = json.decoder.JSONDecoder().decode(id_list)
-        if(is_marked):
-            mylist.remove(cats_id)
-        else:
-            mylist.append(cats_id)
 
-        mydic = json.dumps(mylist)
-        id_list.create(mydic)
-    return
+        if(is_marked == 'true'):
+            post = Bookmark()
+            post.cat_id = request.POST['cat_id']
+            post.user_id = request.user
+            post.save()
+            print("suc2")
+        else:
+            id = int(request.POST['cat_id'])
+            Bookmark.objects.filter(cat_id = id).delete()
+            print("suc1")
+            print(type(id))
+    return render(request,'cat_inf/create.html') 
 
 
 def mypage(request):

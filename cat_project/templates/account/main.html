@@ -100,7 +100,7 @@
                 'height': '52px',
                 'background': 'url(../../static/image/eee.png) no-repeat', //이미지의 크기가 52x52여야 함
                 'border-radius': '52px',
-                'border': '1px solid #1a86ae',//
+                'border': '1px solid #1a86ae',
                 'color': 'white',
                 'textAlign': 'center',
                 'lineHeight': '52px',
@@ -127,9 +127,9 @@
             var iwContent = `<div style="padding:5px;">
                                 ${positions[i].content}<br>
                                 {% if feed.is_liked %}
-                                    <span id="bookmark_${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark </span>
+                                    <span id="${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark </span>
                                 {% else %}
-                                    <span id="bookmark_${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark_border </span>
+                                    <span id="${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark_border </span>
                                 {% endif %}
                                 <input type="button" value="추가 정보" onclick="showPopup(${positions[i].id});" />
                             </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -155,7 +155,6 @@
         function showPopup(id) {
             // window.name = "부모창 이름"; 
             window.name = "main";
-            //openWin = window.open("{% url 'details' id }", "cdetails", "width=400, height=300, left=100, top=50");        게시물의 id 불러와야 함. (에러)
             alert(id);
             // window.open("open할 window", "자식창 이름", "팝업창 옵션");
             openWin.document.getElementById("cInput").value = "asdf";
@@ -204,6 +203,7 @@
                 marked = false;
             }
             //북마크 정보 전달
+            /*
             $.ajax({
                 beforeSend: function (xhr, settings) {
                     if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -214,15 +214,39 @@
                 url: "{% url 'bookmark' %}",
                 data: {
 
-                    cats_id: bookmark_id,
-                    is_marked: marked
+                    "cat_id": Number(bookmark_id),
+                    "is_marked": marked
                 },
                 success: function (data) {
+                    console.log(Number(bookmark_id))
                     console.log("success")
                 },
-                error: function (request, status, error) {
+                error: function (request, status,response ,error) {
                     console.log("error")
+                    console.log(bookmark_id)
                 }
+            })*/
+            const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+            const fd = new FormData();
+            fd.append('csrfmiddlewaretoken', csrf[0].value)
+            fd.append('cat_id', Number(bookmark_id))
+            fd.append('is_marked', marked)
+
+            $.ajax({
+                type:'POST',
+                url: "{% url 'bookmark' %}",
+                data: fd,
+                success: function(response){
+                    console.log('success')
+                    console.log(typeof(marked))
+                },
+                error: function(error){
+                    console.log('error', error)
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
             })
         });
     </script>

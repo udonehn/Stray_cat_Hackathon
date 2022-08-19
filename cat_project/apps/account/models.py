@@ -1,6 +1,11 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+#from cat_inf import Bookmark
 
+
+class Bookmark(models.Model):
+    cat_id = models.IntegerField(null=True)
+    user_id = models.EmailField(null=True)
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, name, password=None):
@@ -34,7 +39,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    bookmarked = models.TextField(null=True)
+    bookmarkList = models.ForeignKey('Bookmark', on_delete=models.CASCADE ,null=True)
 
     class Meta:
         db_table = 'user'
