@@ -8,29 +8,63 @@ from django.contrib import messages
 from cat_inf.models import Cat
 import json
 
+"""
+name = models.CharField(max_length = 100) #이름
+    date = models.DateTimeField(auto_now_add=True) #등록일
+    species = models.CharField(max_length = 100) #종 이름
+    sex = models.IntegerField() #성별 / 1:암, 2:수, 3모름
+    neutral = models.IntegerField() #중성화 여부 / 1:유 2:무, 3:모름
+    alert = models.IntegerField() #사람 경계도 / 1:상, 2:중, 3:하
+    character = models.CharField(max_length = 100) #특징
+    latitude = models.DecimalField(max_digits = 17, decimal_places = 13)
+    longitude = models.DecimalField(max_digits = 17, decimal_places = 13)
+    photo = models.ImageField(blank=True, null=True, upload_to='cat_photo')
+    author = models.ForeignKey(User, on_delete=models.CASCADE ,null=True)
+    id = models.AutoField(primary_key=True)
+"""
+
+
 def main(request):
     cats = Cat.objects.all()
-    count = Cat.objects.count()
-    content = {
-        "cats":cats,
-        "count":count
-    }
-    return render(request,'account/main.html',content)
+    cat_object_list = Cat.objects.all()
+    user_id = request.user
+
+    cat_list = []
+    
+    for cat in cat_object_list:
+        is_marked = Bookmark.objects.filter(cat_id = cat.id , user_id = user_id).exists()
+        cat_list.append(dict(name=cat.name,
+                                date = cat.date,
+                                species = cat.species,
+                                sex = cat.sex,
+                                neutral = cat.neutral,
+                                alert = cat.alert,
+                                character = cat.character,
+                                latitude = cat.latitude,
+                                longitude = cat.longitude,
+                                photo = cat.photo,
+                                author = cat.author,
+                                id = cat.id,
+                                is_marked=is_marked
+                            ))
+    return render(request,'account/main.html',content=dict(cats=cats, cat_list=cat_list))
 
 def bookmark(request):
     if(request.method == 'POST'):
         is_marked = request.POST['is_marked']
 
-        if(is_marked == 'true'):
+        if(is_marked == 'false'):
             post = Bookmark()
             post.cat_id = request.POST['cat_id']
             post.user_id = request.user
             post.save()
-            print("suc2")
+            print("suc2(created)")
         else:
             id = int(request.POST['cat_id'])
-            Bookmark.objects.filter(cat_id = id).delete()
-            print("suc1")
+            user_id = request.user
+            print(user_id)
+            Bookmark.objects.filter(cat_id = id , user_id = user_id).delete()
+            print("suc1(deleted)")
             print(type(id))
     return render(request,'cat_inf/create.html') 
 

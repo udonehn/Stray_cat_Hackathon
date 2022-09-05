@@ -59,6 +59,7 @@
     </script>
     {% if user.is_authenticated %}
     <script>
+        //여기 ajax 싹 다 새로 만들어야됨. (데이터 받아오는 방식을 전처리로 바꾸면)
         $.ajax({
             url: "{% url 'getApi' %}",
             dataType: "json",
@@ -203,34 +204,12 @@
                 marked = false;
             }
             //북마크 정보 전달
-            /*
-            $.ajax({
-                beforeSend: function (xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                },
-                type: 'POST',
-                url: "{% url 'bookmark' %}",
-                data: {
-
-                    "cat_id": Number(bookmark_id),
-                    "is_marked": marked
-                },
-                success: function (data) {
-                    console.log(Number(bookmark_id))
-                    console.log("success")
-                },
-                error: function (request, status,response ,error) {
-                    console.log("error")
-                    console.log(bookmark_id)
-                }
-            })*/
             const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
             const fd = new FormData();
             fd.append('csrfmiddlewaretoken', csrf[0].value)
             fd.append('cat_id', Number(bookmark_id))
+            fd.append('', )
             fd.append('is_marked', marked)
 
             $.ajax({
