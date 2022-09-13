@@ -47,7 +47,8 @@ def main(request):
                                 id = cat.id,
                                 is_marked=is_marked
                             ))
-    return render(request,'account/main.html',content=dict(cats=cats, cat_list=cat_list))
+    content=dict(cats=cats, cat_list=cat_list)
+    return render(request,'account/main.html',content)
 
 def bookmark(request):
     if(request.method == 'POST'):
