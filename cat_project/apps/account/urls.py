@@ -24,6 +24,6 @@ urlpatterns = [
     path('signup/', views.signup, name = 'signup'),
     path('mypage/', views.mypage, name = 'mypage'),
     path('bookmark/', views.bookmark, name = 'bookmark'),
-    path('deta/<str:cat_id>/', views.deta, name = 'deta'),
+    path('detail/<str:cat_id>/', views.detail, name = 'detail'),
 
 ]

@@ -111,6 +111,6 @@ def signup(request):
         return render(request, 'account/signup.html')
     return render(request, 'account/signup.html')
 
-def deta(request, cat_id):
+def detail(request, cat_id):
     cat_detail = get_object_or_404(Cat, pk=cat_id)
-    return render(request, 'account/deta.html',{'cat_detail':cat_detail})
+    return render(request, 'account/detail.html',{'cat_detail':cat_detail})
