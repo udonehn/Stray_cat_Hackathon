@@ -6,9 +6,9 @@ class Cat(models.Model):
     name = models.CharField(max_length = 100) #이름
     date = models.DateTimeField(auto_now_add=True) #등록일
     species = models.CharField(max_length = 100) #종 이름
-    sex = models.IntegerField() #성별 / 1:암, 2:수, 3모름
-    neutral = models.IntegerField() #중성화 여부 / 1:유 2:무, 3:모름
-    alert = models.IntegerField() #사람 경계도 / 1:상, 2:중, 3:하
+    sex = models.CharField(max_length = 100) #성별
+    neutral = models.CharField(max_length = 100) #중성화 여부
+    alert = models.CharField(max_length = 100) #사람 경계도
     character = models.CharField(max_length = 100) #특징
     latitude = models.DecimalField(max_digits = 17, decimal_places = 13)
     longitude = models.DecimalField(max_digits = 17, decimal_places = 13)
