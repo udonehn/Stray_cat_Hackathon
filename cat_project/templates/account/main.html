@@ -21,14 +21,16 @@
     Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
     <!-- custom css & js-->
-    <link rel="stylesheet" href="{% static '/css/signup.css' %}">
+    <link rel="stylesheet" href="{% static '/css/main.css' %}">
 
     <title>메인페이지</title>
 </head>
 
 <body>
-    <h1>메인페이지</h1>
-
+    <h1>STRAY CAT</h1>
+    <h2>GATHER THE CAT!</h2>
+    <p>사용자의 지역에 사는 길고양이를 등록하고 <br>다른 사용자들과 공동체를 형성하여<br> 체계화된 길고양이 양육을 할 수 있는 플랫폼 서비스
+    </p>
     {% if user.is_authenticated %}
     <div>환영합니다 {{user.name}}님</div>
     <a href="{% url 'logout' %}">로그아웃</a>
@@ -38,8 +40,8 @@
 
     {% csrf_token %}
     <br><br>
-    <div id="map" style="width:500px;height:400px;"></div><!-- 지도 -->
-    
+    <center><div id="map" style="width:500px;height:400px;"></div><!-- 지도 --></center>
+    {% if user.is_authenticated %}
     <script>
 
         var container = document.getElementById('map');
@@ -56,7 +58,6 @@
         var returnValue;
         var long
     </script>
-    {% if user.is_authenticated %}
     <script>
         //여기 ajax 싹 다 새로 만들어야됨. (데이터 받아오는 방식을 전처리로 바꾸면)
         $.ajax({

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400&display=swap');
+ 
+body {
+  background-color: #fce1e1;
+}
+
+p {
+  font-family : "Gaegu", serif;
+  font-size : 30px;
+  bottom : -50px; 
+  text-align: center;
+}
+
+h1 {
+  font-family : "Gaegu", serif;
+  font-size : 40px;
+  background-color : #fcbbbb;
+  margin : 30px;
+  border-radius : 20px;
+  padding : 10px;
+  text-align: center;
+}
+
+form {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  position : relative;
+  bottom : -15px; 
+  text-align: center;
+  border : 2px solid #fcbbbb;
+  border-radius : 20px;
+  padding : 10px;
+  margin-left : 400px;
+  margin-right : 400px;
+}
+
+input[type=text] {
+  border : solid #fcbbbb;
+  width : 140px;
+  height : 30px;
+}
+
+input[type=radio] {
+  background-color : #FFFF;
+  -moz-appearance : none;
+  -webkit-appearance: none;
+  margin-left : 16px;
+  border : 1px solid #fcbbbb;
+  width : 14px;
+  height : 14px;
+  border-radius : 100%;
+}
+
+input[type=radio]:checked {
+  background-color : #fcbbbb;
+  -moz-appearance : none;
+  -webkit-appearance: none;
+  margin-left : 16px;
+  border : 1px solid #fcbbbb;
+  width : 14px;
+  height : 14px;
+  border-radius : 100%;
+}
+
+input[type=submit] {
+  font-family : "Gaegu", serif;
+  font-size : 30px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 50px;
+  border-radius : 20px;
+  padding : 10px;
+  margin-left : 610px;
+  margin-right : 610px;
+}
+
+input[type=submit]:hover {
+  background-color : #fcbbbb;
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 30px;
+  cursor : pointer;
+}
+
+
+div.box1{
+  justify-content : center; 
+  display: flex;
+}
+
+div.box2{
+  align-items: center; 
+  text-align: center; 
+  width: 400px; 
+  height: 500px;
+}

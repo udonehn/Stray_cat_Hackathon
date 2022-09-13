@@ -3,14 +3,15 @@
 body {
   font-family : "Gaegu", serif;
   text-align: center;
+  background-color: #fce1e1;
 }
 
 h1 {
+  background-color : #fcbbbb;
   font-size : 40px;
   color : black;
   text-align : center;
   font-size : 40px;
-  background-color : #fcbbbb;
   margin : 10px;
   border-radius : 20px;
   padding : 10px;
@@ -32,7 +33,7 @@ form {
   font-family : "Gaegu", serif;
   font-size : 20px;
   position : relative;
-  bottom : -50px;
+  bottom : -75px;
   border : 2px solid #fcbbbb;
   border-radius : 20px;
   padding : 10px;
@@ -42,11 +43,14 @@ form {
 
 button[type=submit] {
   background-color : #fcbbbb;
+  color : maroon;
   font-family : "Gaegu", serif;
   font-size : 20px;
-  font-weight:bold;
+  font-weight : bold;
   width: 250px; 
   height: 40px;
+  border : #fcbbbb;
+  border-radius : 20px;
 }
 
 button[type=submit]:hover {

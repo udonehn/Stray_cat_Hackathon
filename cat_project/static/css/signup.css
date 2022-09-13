@@ -1,14 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400&display=swap');
 
+body {
+  background-color: #fce1e1;
+  font-family : "Gaegu", serif;
+}
 
 h1 {
-  font-family : "Gaegu", serif;
-  font-size : 40px;
   background-color : #fcbbbb;
+  font-size : 40px;
+  color : black;
+  text-align : center;
   margin : 10px;
   border-radius : 20px;
   padding : 10px;
-  
 }
 
 form {
@@ -54,15 +58,4 @@ input[type=submit]:hover {
   width : 160px; 
   height : 40px;
   cursor : pointer;
-}
-
-div.box1{
-  justify-content : center; 
-  display: flex;
-}
-div.box2{
-  align-items: center; 
-  text-align: center; 
-  width: 400px; 
-  height: 500px;
 }
