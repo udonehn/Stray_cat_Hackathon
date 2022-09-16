@@ -1,9 +1,11 @@
 from calendar import isleap
 import imp
+import json
 from urllib import request
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from cat_inf.models import Cat
+from account.models import User,Bookmark
 from django.http import HttpResponse
 from django.core import serializers
 
@@ -38,6 +40,20 @@ def getApi(request):
     cats = Cat.objects.all()
     cats_list = serializers.serialize('json', cats)
     return HttpResponse(cats_list, content_type="text/json-comment-filtered")
+
+def getApi_marked(request):
+    cat_object_list = Cat.objects.all()
+    user_id = request.user
+
+    cat_list = []
+    
+    for cat in cat_object_list:
+        is_marked = Bookmark.objects.filter(cat_id = cat.id , user_id = user_id).exists()
+        cat_list.append(dict(name=cat.name,
+                                is_marked=is_marked
+                            ))
+    result = json.dumps({'list':cat_list})
+    return HttpResponse(result, content_type="text/json-comment-filtered")
 
 
 

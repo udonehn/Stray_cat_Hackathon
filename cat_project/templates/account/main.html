@@ -27,6 +27,7 @@
 </head>
 
 <body>
+    <!--{{ cat_list.1.name }} -->
     <h1>STRAY CAT</h1>
     <h2>GATHER THE CAT!</h2>
     <p>사용자의 지역에 사는 길고양이를 등록하고 <br>다른 사용자들과 공동체를 형성하여<br> 체계화된 길고양이 양육을 할 수 있는 플랫폼 서비스
@@ -64,7 +65,7 @@
             url: "{% url 'getApi' %}",
             dataType: "json",
             success: function (data) {
-                console.log(data)
+                //console.log(data)
                 for (var i = 0; i < data.length; i++) {
                     const data1 = $.trim(data[i].fields.photo);
 
@@ -113,40 +114,63 @@
 
         var imageSize = new kakao.maps.Size(33, 33); // 마커 이미지의 이미지 크기 입니다
 
-        for (var i = 0; i < positions.length; i++) {
+        $.ajax({
+            url: "{% url 'getApi_marked' %}",
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);
+                //console.log("data.list: "+ data.list[0].is_marked);
+                //d = JSON.stringify(data)
+                //console.log("d.list: "+d.list);
 
-            var markerImage = new kakao.maps.MarkerImage(images[i], imageSize);// 마커 이미지를 생성합니다  
 
-            // 마커를 생성합니다
-            var marker = new kakao.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                position: positions[i].latlng, // 마커를 표시할 위치
-                title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                image: markerImage // 마커 이미지 
-            });
-            var de = Number(positions[i].id)
-            var iwContent = `<div style="padding:5px;">
-                                ${positions[i].content}<br>
-                                {% if feed.is_liked %}
-                                    <span id="${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark </span>
-                                {% else %}
-                                    <span id="${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark_border </span>
-                                {% endif %}
-                                <button type="botton" onclick="location.href='/account/detail/${de}'">추가 정보</button>
-                            </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+                for (var i = 0; i < positions.length; i++) {
+                    var markerImage = new kakao.maps.MarkerImage(images[i], imageSize);// 마커 이미지를 생성합니다  
 
-            // 마커에 표시할 인포윈도우를 생성합니다 
-            var infowindow = new kakao.maps.InfoWindow({
-                content: iwContent,
-                removable: iwRemoveable
-            });
-            // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-            kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+                    // 마커를 생성합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map, // 마커를 표시할 지도
+                        position: positions[i].latlng, // 마커를 표시할 위치
+                        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        image: markerImage // 마커 이미지 
+                    });
+                    var de = Number(positions[i].id)
+                    var iwContent;
 
-            markers.push(marker)
-        }
-        clusterer.addMarkers(markers);
+                    if(data.list[i].is_marked){
+                        iwContent = `<div style="padding:5px;">
+                                        ${positions[i].content}<br>
+                                            <span id="${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark </span>
+                                        <button type="botton" onclick="location.href='/account/detail/${de}'">추가 정보</button>
+                                    </div>` // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                    }
+                    else{
+                        iwContent = `<div style="padding:5px;">
+                                        ${positions[i].content}<br>
+                                            <span id="${positions[i].id}" class="bookmark material-icons" style="color: rgb(255, 220, 21); cursor: pointer"> bookmark_border </span>
+                                        <button type="botton" onclick="location.href='/account/detail/${de}'">추가 정보</button>
+                                    </div>` // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                    }
+
+                    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+                    // 마커에 표시할 인포윈도우를 생성합니다 
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: iwContent,
+                        removable: iwRemoveable
+                    });
+                    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+                    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+
+                    markers.push(marker)
+                }
+                clusterer.addMarkers(markers);
+            },
+            error: function (request, status, error) {
+                console.log('실패22');
+            }
+        });
+        
 
         function makeOverListener(map, marker, infowindow) {
             return function () {
@@ -154,7 +178,6 @@
             };
         }
 
-        clusterer.addMarkers();
 
     </script>
     {% endif %}
