@@ -114,3 +114,15 @@ def signup(request):
 def detail(request, cat_id):
     cat_detail = get_object_or_404(Cat, pk=cat_id)
     return render(request, 'account/detail.html',{'cat_detail':cat_detail})
+
+def mypage(request):
+    user_id = request.user
+
+    booked_list = list(Bookmark.objects.filter(user_id = user_id).values_list('cat_id',flat=True))
+
+    my_cat_list = Cat.objects.filter(author = user_id).all()
+    booked_cat_list = Cat.objects.filter(id__in=booked_list)
+    
+    content = dict(my_cat_list=my_cat_list, booked_cat_list=booked_cat_list)
+
+    return render(request,'account/mypage.html', content) 

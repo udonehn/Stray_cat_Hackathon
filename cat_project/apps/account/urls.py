@@ -25,5 +25,6 @@ urlpatterns = [
     path('mypage/', views.mypage, name = 'mypage'),
     path('bookmark/', views.bookmark, name = 'bookmark'),
     path('detail/<str:cat_id>/', views.detail, name = 'detail'),
+    path('mypage/', views.mypage, name = 'mypage'),
 
 ]
