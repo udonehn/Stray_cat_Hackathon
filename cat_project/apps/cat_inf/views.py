@@ -4,7 +4,7 @@ import json
 from urllib import request
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from cat_inf.models import Cat
+from cat_inf.models import Cat, Complaint
 from account.models import User,Bookmark
 from django.http import HttpResponse
 from django.core import serializers
@@ -55,6 +55,28 @@ def getApi_marked(request):
     result = json.dumps({'list':cat_list})
     return HttpResponse(result, content_type="text/json-comment-filtered")
 
+def complaint(request):
+    if(request.method == 'POST'):
+        form_tag = int(request.POST['form_tag'])
+        post = Complaint()
+
+        if form_tag == 0:
+            cat_id = request.POST['cat_id']
+            print(cat_id)
+            post.cat_id = cat_id
+
+        elif form_tag == 1:
+            post.latitude = request.POST['latitude']
+            post.longitude = request.POST['longitude']
+        post.form_tag = request.POST['form_tag']
+        post.date = timezone.now()
+        post.complaint_kind = request.POST['complaint_kind']
+        post.character = request.POST['character']
+        post.author = request.user
+        post.save()
+        return render(request,'account/main.html')
+    else:
+        return render(request,'cat_inf/complaint.html')
 
 
 #여기부터는 코드에 사용되는 함수

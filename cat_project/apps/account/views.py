@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate
@@ -67,7 +68,7 @@ def bookmark(request):
             Bookmark.objects.filter(cat_id = id , user_id = user_id).delete()
             print("suc1(deleted)")
             print(type(id))
-    return render(request,'cat_inf/create.html') 
+    return NULL
 
 
 def mypage(request):
@@ -126,3 +127,6 @@ def mypage(request):
     content = dict(my_cat_list=my_cat_list, booked_cat_list=booked_cat_list)
 
     return render(request,'account/mypage.html', content) 
+
+def url_test(request):
+    return render(request,'account/url_test.html') 

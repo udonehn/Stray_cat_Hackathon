@@ -22,7 +22,7 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31"></script>
 
     <!-- custom css & js-->
-    <link rel="stylesheet" href="{% static '/css/main1.css' %}">1
+    <link rel="stylesheet" href="{% static '/css/create.css' %}">1
     <script src="{% static '/js/create.js' %}" defer></script>
 
     <title>고양이 생성</title>
@@ -30,7 +30,6 @@
 </head>
 
 <body>
-    <h1>sss</h1>
     <div id="map" style="width:500px;height:400px;"></div> <!-- 지도 박스 -->
     <p><em>지도를 클릭해주세요!</em></p>
     
@@ -91,7 +90,7 @@
             <input name="alert" type="radio" value="하">하
             <br><br>
             특징:
-            <textarea rows="5" cols="30" name="character" placeholder="먹는 약, 수술여부, 연락할 오픈 카톡방 등 고양이와 등록자분 소개를 적어주세요! (고양이 상세페이지에 등록됩니다.)"></textarea>
+            <textarea id="textarea" rows="5" cols="30" name="character" placeholder="먹는 약, 수술여부, 연락할 오픈 카톡방 등 고양이와 등록자분 소개를 적어주세요! (고양이 상세페이지에 등록됩니다.)"></textarea>
             <br><br>
             사진 업로드 : <br>
             <input name="photo" type="file" id="id_file" >

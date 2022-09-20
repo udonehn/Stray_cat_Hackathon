@@ -18,3 +18,17 @@ class Cat(models.Model):
     #어드민 창에서 데이터 name 필드를 이름으로 쓰는 코드
     def __str__(self):
         return self.name
+
+#form_tag가 0일 떄 (고양이를 알 때)
+class Complaint(models.Model):
+    form_tag = models.IntegerField() # 0: 고양이를 앎, 1:지역
+    #0인 경우의 데이터
+    cat_id = models.IntegerField(null=True) #고양이 등록 id
+    #1인 경우의 데이터
+    latitude = models.DecimalField(max_digits = 17, decimal_places = 13, null=True)
+    longitude = models.DecimalField(max_digits = 17, decimal_places = 13, null=True)
+    #공통 데이터
+    date = models.DateTimeField(auto_now_add=True) #등록일
+    complaint_kind = models.TextField(blank=False) #민원 체크박스 읽어옴
+    character = models.TextField(null=True) #특징(기타 사항)
+    author = models.EmailField()
