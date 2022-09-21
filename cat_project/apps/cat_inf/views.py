@@ -62,12 +62,12 @@ def complaint(request):
 
         if form_tag == 0:
             cat_id = request.POST['cat_id']
-            print(cat_id)
             post.cat_id = cat_id
 
         elif form_tag == 1:
             post.latitude = request.POST['latitude']
             post.longitude = request.POST['longitude']
+            # 이 좌표를 중심으로 반지름 0.0015 원 안에 있는 고양이에게 경고를 보내도록 만들어야 함.
         post.form_tag = request.POST['form_tag']
         post.date = timezone.now()
         post.complaint_kind = request.POST['complaint_kind']
