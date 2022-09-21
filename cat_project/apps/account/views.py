@@ -6,7 +6,7 @@ from account.models import User,Bookmark
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib import messages
-from cat_inf.models import Cat, Complaint
+from cat_inf.models import Cat, Complaint, Feed
 import json
 from collections import Counter
 
@@ -69,7 +69,7 @@ def bookmark(request):
             Bookmark.objects.filter(cat_id = id , user_id = user_id).delete()
             print("suc1(deleted)")
             print(type(id))
-    return NULL
+    return render(request,'account/main.html')
 
 def login(request):
     if request.method == 'POST':
@@ -111,7 +111,15 @@ def signup(request):
 
 def detail(request, cat_id):
     cat_detail = get_object_or_404(Cat, pk=cat_id)
-    return render(request, 'account/detail.html',{'cat_detail':cat_detail})
+    complaint_list = Complaint.objects.filter(cat_id=cat_id)
+    last_feed_data = Feed.objects.filter(cat_id=cat_id).last()
+
+    content = dict(
+        cat_detail=cat_detail, 
+        complaint_list=complaint_list,
+        last_feed_data=last_feed_data
+        )
+    return render(request, 'account/detail.html',content)
 
 def mypage(request):
     user_id = request.user

@@ -30,12 +30,18 @@
     <div id="latitude" style="display: none;">{{cat_detail.latitude}}</div>
     <div id="longitude" style="display: none;">{{cat_detail.longitude}}</div>
     <div id="photo" style="display: none;">{{cat_detail.photo}}</div>
+    <div id="cat_id" style="display: none;">{{cat_detail.id}}</div>
 
     <!-- 여기서부터 프론트 만들면 됨 -->
     <!-- 만들 때 민원 신고 버튼, 밥 줬을 때 누르는 버튼, 간식 줬을 때 누르는 버튼, 고양이 아플 떄 신고하는 버튼도 만들어줘. 백엔드 작업은 나중에 할게. -->
     <!-- 각 버튼을 누르면 모달 팝업이 뜨는 거까지만 해줘. https://youtu.be/M8UPyeF5DfM?t=14179 링크 들어가면 딱 나오는 부분에서 만드는 것처럼 해주면 졸을 것 같아. 여기 만드는 방법도 나와 -->
 
     <!-- 여기에 있는 게 정보 나오는 부분인데 페이지가 생성되기 전에 {{cat_detail.name}} 같은 부분이 텍스트로 치환된다고 생각하면 될 것 같아. -->
+
+
+
+    <!-- 추가!!!!!! 밥 줬을 때 누르는 버튼은 만듦! -->
+    <!-- 갑자기 발견했는데 이 폰트 힣같은 이상한 글자는 폰트가 안먹음 -->
     <h1>이름</h1>
     {{cat_detail.name}}
     <h1>등록일</h1>
@@ -57,8 +63,39 @@
     <h1>이미지</h1>
     {{cat_detail.photo}}
 
+    <form method="post" action="{% url 'feed' %}">
+        {% csrf_token %}
+    </form>
+
+    <h1>음식 주는 버튼</h1>
+    <input type="submit" class="" id="feed-btn" value="등록">
+
+    <br><br>
+    <h1>마지막으로 사료를 준 시간</h1>
+    <span>{{ last_feed_data.date }}</span><br><br><br><br><br><br><br>
+
+    <h1>민원 정보</h1>
+    <!-- 민원 정보 div 반복생성문 -->
+    <div>
+        {% for complaint in complaint_list %}
+            <div>
+                {% if complaint.form_tag == 0 %}
+                    민원 종류: 특정 고양이 민원
+                {% else %}
+                    민원 종류: 지역 민원
+                {% endif %}
+                <br><br>
+                신고일: {{ complaint.date }}<br><br>
+                신고 종류: {{ complaint.complaint_kind }}<br><br>
+                상세 정보: {{ complaint.character }}<br><br>
+
+            </div>
+        {% endfor %}
+    </div>
+
     <div id="map" style="width:500px;height:400px;"></div><!-- 지도 박스 -->
 
+    <!-- 지도 코드 -->
     <script>
         var latitude = $("#latitude").text();
         var longitude = $("#longitude").text();
@@ -86,6 +123,39 @@
         });
 
         marker.setMap(map);
+    </script>
+
+    <!-- 음식 등록코드 -->
+    <script>
+        const confirmBtn = document.getElementById('feed-btn') //등록버튼
+        const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+        //북마크 아이콘 관리
+        confirmBtn.addEventListener('click', ()=>{
+            var cat_id = $('#cat_id').text();
+            console.log(cat_id);
+            
+            const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+            const fd = new FormData();
+            fd.append('csrfmiddlewaretoken', csrf[0].value)
+            fd.append('cat_id', Number(cat_id))
+
+            $.ajax({
+                type:'POST',
+                url: "{% url 'feed' %}",
+                data: fd,
+                success: function(response){
+                    console.log('success')
+                },
+                error: function(error){
+                    console.log('error', error)
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+            })
+        });
     </script>
 </body>
 

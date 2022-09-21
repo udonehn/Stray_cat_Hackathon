@@ -31,3 +31,8 @@ class Complaint(models.Model):
     complaint_kind = models.TextField(blank=False) #민원 체크박스 읽어옴
     character = models.TextField(null=True) #특징(기타 사항)
     author = models.EmailField()
+
+class Feed(models.Model):
+    cat_id = models.IntegerField(null=True)
+    author = models.EmailField(null=True)
+    date = models.DateTimeField(auto_now_add=True)
