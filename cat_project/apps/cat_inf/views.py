@@ -58,22 +58,42 @@ def getApi_marked(request):
 def complaint(request):
     if(request.method == 'POST'):
         form_tag = int(request.POST['form_tag'])
-        post = Complaint()
 
         if form_tag == 0:
-            cat_id = request.POST['cat_id']
-            post.cat_id = cat_id
+            post = Complaint()
+            post.cat_id = request.POST['cat_id']
+
+            post.form_tag = request.POST['form_tag']
+            post.date = timezone.now()
+            post.complaint_kind = request.POST['complaint_kind']
+            post.character = request.POST['character']
+            post.author = request.user
+            post.save()
 
         elif form_tag == 1:
-            post.latitude = request.POST['latitude']
-            post.longitude = request.POST['longitude']
+            x = float(request.POST['latitude'])
+            y = float(request.POST['longitude'])
+            cat_object_list = list(Cat.objects.all())
+            for cat in cat_object_list:
+                x2 = float(cat.latitude)
+                y2 = float(cat.longitude)
+                distance = ((x-x2)**2 + (y-y2)**2)**0.5
+                if distance < 0.0015:
+                    post = Complaint()
+                    post.cat_id = cat.id
+                    post.latitude = x
+                    post.longitude = y
+
+                    post.form_tag = request.POST['form_tag']
+                    post.date = timezone.now()
+                    post.complaint_kind = request.POST['complaint_kind']
+                    post.character = request.POST['character']
+                    post.author = request.user
+                    post.save()
+
+
             # 이 좌표를 중심으로 반지름 0.0015 원 안에 있는 고양이에게 경고를 보내도록 만들어야 함.
-        post.form_tag = request.POST['form_tag']
-        post.date = timezone.now()
-        post.complaint_kind = request.POST['complaint_kind']
-        post.character = request.POST['character']
-        post.author = request.user
-        post.save()
+
         return render(request,'account/main.html')
     else:
         return render(request,'cat_inf/complaint.html')

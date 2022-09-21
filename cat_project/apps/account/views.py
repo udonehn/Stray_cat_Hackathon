@@ -6,7 +6,7 @@ from account.models import User,Bookmark
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib import messages
-from cat_inf.models import Cat
+from cat_inf.models import Cat, Complaint
 import json
 
 """
@@ -70,10 +70,6 @@ def bookmark(request):
             print(type(id))
     return NULL
 
-
-def mypage(request):
-    pass
-
 def login(request):
     if request.method == 'POST':
         userid = request.POST['username']
@@ -120,6 +116,7 @@ def mypage(request):
     user_id = request.user
 
     booked_list = list(Bookmark.objects.filter(user_id = user_id).values_list('cat_id',flat=True))
+    #complaint_list = Complaint.objects.filter(cat_id__in=booked_list)
 
     my_cat_list = Cat.objects.filter(author = user_id).all()
     booked_cat_list = Cat.objects.filter(id__in=booked_list)
