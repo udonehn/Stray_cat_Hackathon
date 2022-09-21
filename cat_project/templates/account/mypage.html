@@ -19,6 +19,7 @@
     <!-- google material icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|
     Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <!-- custom css & js-->
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
@@ -28,15 +29,16 @@
 
 <body>
     <!-- 여기 꾸며줄 때 인스타 프로필 페이지처럼 꾸며주면 좋을듯 -->
+    <!-- https://fonts.google.com/icons 여기에서 아이콘 찾아서 쓰면 됨, 방법은 알면 그냥 하고 아니면 나한테 문의 -->
     <div>{{user.name}}</div>
     <br>
     <span id="button_my_cat_list" style="cursor: pointer">내 고양이 보기</span><!-- 버튼이니까 잘 꾸며줘 -->
     <span> | </span>
     <span id="button_booked_cat_list" style="cursor: pointer">북마크 고양이 보기</span><!-- 얘도! -->
     <br>
-
     <!-- 여기가 고양이 div 생성하는 부분이야. for문 안에있는 html코드가 반복되면서 페이지가 생성되는 형식이니까 그거 알고 꾸며주면 돼. -->
     <!-- 그리고 여기에 고양이 최근 밥 준 시간, 건강상태같이 detail에서 주문한 거 넣을 수 있는 부분도 미리 만들어주면 좋을 것 같아. -->
+
     <!-- 내고양이 생성 부분 -->
     <div id="my_cat_list" style="display: block">
         {% for cat in my_cat_list %}
@@ -44,7 +46,11 @@
                 <div style="display: inline-block;"><a href='/account/detail/{{cat.id}}'><img src="{% get_media_prefix %}{{cat.photo}}" width="100px"></a></div>
                 <div style="display: inline-block;">
                     {{cat.name}}<br>
-                    경계도: {{cat.alert}}
+                    경계도: {{cat.alert}}<br>
+                    {% if cat.complaint_count != 0 %}
+                        <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
+                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
@@ -56,7 +62,11 @@
                 <div style="display: inline-block;"><a href='/account/detail/{{cat.id}}'><img src="{% get_media_prefix %}{{cat.photo}}" width="100px"></a></div>
                 <div style="display: inline-block;">
                     {{cat.name}}<br>
-                    경계도: {{cat.alert}}
+                    경계도: {{cat.alert}}<br>
+                    {% if cat.complaint_count != 0 %}
+                        <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
+                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

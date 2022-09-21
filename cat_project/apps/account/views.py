@@ -8,6 +8,7 @@ from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib import messages
 from cat_inf.models import Cat, Complaint
 import json
+from collections import Counter
 
 """
 name = models.CharField(max_length = 100) #이름
@@ -115,13 +116,18 @@ def detail(request, cat_id):
 def mypage(request):
     user_id = request.user
 
-    booked_list = list(Bookmark.objects.filter(user_id = user_id).values_list('cat_id',flat=True))
-    #complaint_list = Complaint.objects.filter(cat_id__in=booked_list)
+    booked_id_list = list(Bookmark.objects.filter(user_id = user_id).values_list('cat_id',flat=True))
+    my_cat_id_list = list(Cat.objects.filter(author = user_id).values_list('id',flat=True))
 
-    my_cat_list = Cat.objects.filter(author = user_id).all()
-    booked_cat_list = Cat.objects.filter(id__in=booked_list)
+    complaint_find_list = list(set(booked_id_list + my_cat_id_list))
+    complaint_list = Complaint.objects.filter(cat_id__in = complaint_find_list)
     
-    content = dict(my_cat_list=my_cat_list, booked_cat_list=booked_cat_list)
+    my_cat_list = Cat.objects.filter(id__in=my_cat_id_list)
+    booked_cat_list = Cat.objects.filter(id__in=booked_id_list)
+    content = dict(
+        my_cat_list=my_cat_list, 
+        booked_cat_list=booked_cat_list
+        )
 
     return render(request,'account/mypage.html', content) 
 

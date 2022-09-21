@@ -61,7 +61,8 @@ def complaint(request):
 
         if form_tag == 0:
             post = Complaint()
-            post.cat_id = request.POST['cat_id']
+            cat_id = int(request.POST['cat_id'])
+            post.cat_id = cat_id
 
             post.form_tag = request.POST['form_tag']
             post.date = timezone.now()
@@ -70,6 +71,9 @@ def complaint(request):
             post.author = request.user
             post.save()
 
+            cat = Cat.objects.filter(id = cat_id).first()
+            cat.complaint_count = int(cat.complaint_count)+1
+            cat.save()
         elif form_tag == 1:
             x = float(request.POST['latitude'])
             y = float(request.POST['longitude'])
@@ -80,7 +84,8 @@ def complaint(request):
                 distance = ((x-x2)**2 + (y-y2)**2)**0.5
                 if distance < 0.0015:
                     post = Complaint()
-                    post.cat_id = cat.id
+                    cat_id = cat.id
+                    post.cat_id = cat_id
                     post.latitude = x
                     post.longitude = y
 
@@ -91,8 +96,9 @@ def complaint(request):
                     post.author = request.user
                     post.save()
 
-
-            # 이 좌표를 중심으로 반지름 0.0015 원 안에 있는 고양이에게 경고를 보내도록 만들어야 함.
+                    cat = Cat.objects.filter(id = cat_id).first()
+                    cat.complaint_count = int(cat.complaint_count)+1
+                    cat.save()
 
         return render(request,'account/main.html')
     else:
