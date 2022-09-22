@@ -9,7 +9,7 @@
 
 <body>
     <div class="box1">
-        <div class="box2">
+        <div class="box2" style = "text-align: center;">
             <h1>회원가입</h1>
             <form method="POST" action="{% url 'signup' %}">
                 {% csrf_token %}
@@ -25,7 +25,7 @@
                 이메일<br>
                 <input name="email" type="email">
                 <br><br>
-                <input type="submit" class="btn btn-primary" value="Sign Up">
+               <input type="submit" class="btn btn-primary" value="Sign Up">
             </form>
         </div>
     </div>

@@ -22,7 +22,7 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e06e9f9b88886eb69986bcdf1d8faa31"></script>
 
     <!-- custom css & js-->
-    <link rel="stylesheet" href="{% static '/css/create.css' %}">1
+    <link rel="stylesheet" href="{% static '/css/create.css' %}">
     <script src="{% static '/js/create.js' %}" defer></script>
 
     <title>고양이 생성</title>
@@ -30,7 +30,11 @@
 </head>
 
 <body>
-    <div id="map" style="width:500px;height:400px;"></div> <!-- 지도 박스 -->
+    <div class="" style="border: 1px; border-color: black;">
+        
+        <h1>정보 입력</h1>
+        <form method="post" action="{% url 'create' %}" enctype="multipart/form-data" id="image-form">
+            <div id="map" style="width:424px;height:300px;"></div> <!-- 지도 박스 -->
     <p><em>지도를 클릭해주세요!</em></p>
     
     <script>
@@ -64,9 +68,6 @@
             document.getElementById('longitude').value = latlng.getLng();
         });
     </script>
-    <div class="" style="border: 1px; border-color: black;">
-        <h1>정보 입력</h1>
-        <form method="post" action="{% url 'create' %}" enctype="multipart/form-data" id="image-form">
             {% csrf_token %}
             이름:
             <input name="name" type="text">
@@ -99,9 +100,9 @@
             <input id="longitude" name="longitude" type="hidden" value=127.1076728599100> <!-- 경도 보내는 부분 -->
             <br><br>
         </form>
-        <input type="submit" class="btn btn-primary mt-3" id="confirm-btn" value="등록">
         
         <div id="image-box" class="mb-3"></div> <!-- 사진 편집기 나오는 부분 -->
+        <input type="submit" class="btn btn-primary mt-3" id="confirm-btn" value="등록">
         <br><br><br><br><br><br><br><br><br><br>
     </div>
 </body>

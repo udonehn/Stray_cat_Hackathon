@@ -2,45 +2,12 @@
  
 body {
   background-color: #fce1e1;
-}
-
-p {
-  font-family : "Gaegu", serif;
-  font-size : 30px;
-  bottom : -50px; 
-  text-align: center;
-}
-
-h1 {
-  font-family : "Gaegu", serif;
-  font-size : 40px;
-  background-color : #fcbbbb;
-  margin : 30px;
-  border-radius : 20px;
-  padding : 10px;
-  text-align: center;
-}
-
-form {
   font-family : "Gaegu", serif;
   font-size : 20px;
-  position : relative;
-  bottom : -15px; 
-  text-align: center;
-  border : 2px solid #fcbbbb;
-  border-radius : 20px;
-  padding : 10px;
-  margin-left : 400px;
-  margin-right : 400px;
+  text-align : center;
 }
 
-input[type=text] {
-  border : solid #fcbbbb;
-  width : 140px;
-  height : 30px;
-}
-
-input[type=radio] {
+input[type=checkbox] {
   background-color : #FFFF;
   -moz-appearance : none;
   -webkit-appearance: none;
@@ -51,7 +18,7 @@ input[type=radio] {
   border-radius : 100%;
 }
 
-input[type=radio]:checked {
+input[type=checkbox]:checked {
   background-color : #fcbbbb;
   -moz-appearance : none;
   -webkit-appearance: none;
@@ -62,10 +29,48 @@ input[type=radio]:checked {
   border-radius : 100%;
 }
 
+.problem {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 50px;
+  border-radius : 20px;
+  padding : 8px;
+}
+
+.problem:hover {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
+  padding : 5px;
+}
+
+.submit {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 50px;
+  border-radius : 20px;
+  padding : 8px;
+}
+.submit:hover {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
+  padding : 5px;
+}
+
+.marker {
+  text-align:left;
+}
+
 input[type=submit] {
   font-family : "Gaegu", serif;
   font-size : 30px;
-  color : maroon;
   background-color : #fcbbbb;
   border : 3px solid #fcbbbb;
   margin : 50px;
@@ -78,21 +83,7 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color : #fcbbbb;
   border : 3px solid #fca2a2;
-  color : maroon;
   font-family : "Gaegu", serif;
   font-size : 30px;
   cursor : pointer;
-}
-
-
-div.box1{
-  justify-content : center; 
-  display: flex;
-}
-
-div.box2{
-  align-items: center; 
-  text-align: center; 
-  width: 400px; 
-  height: 500px;
 }
