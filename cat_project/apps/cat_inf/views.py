@@ -4,7 +4,7 @@ import json
 from urllib import request
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from cat_inf.models import Cat, Complaint, Feed, Snack, injury
+from cat_inf.models import Cat, Complaint, Feed, Snack, Injury
 from account.models import User,Bookmark
 from django.http import HttpResponse
 from django.core import serializers
@@ -104,50 +104,21 @@ def complaint(request):
     else:
         return render(request,'cat_inf/complaint.html')
 
-def Injury(request):
+def injury(request):
     if(request.method == 'POST'):
-        form_tag = int(request.POST['form_tag'])
+        post = Injury()
+        cat_id = int(request.POST['cat_id'])
+        post.cat_id = cat_id
 
-        if form_tag == 0:
-            post = injury()
-            cat_id = int(request.POST['cat_id'])
-            post.cat_id = cat_id
+        post.date = timezone.now()
+        post.injury_kind = request.POST['injury_kind']
+        post.character = request.POST['character']
+        post.author = request.user
+        post.save()
 
-            post.form_tag = request.POST['form_tag']
-            post.date = timezone.now()
-            post.injury_kind = request.POST['injury_kind']
-            post.character = request.POST['character']
-            post.author = request.user
-            post.save()
-
-            cat = Cat.objects.filter(id = cat_id).first()
-            cat.injury_count = int(cat.injury_count)+1
-            cat.save()
-        elif form_tag == 1:
-            x = float(request.POST['latitude'])
-            y = float(request.POST['longitude'])
-            cat_object_list = list(Cat.objects.all())
-            for cat in cat_object_list:
-                x2 = float(cat.latitude)
-                y2 = float(cat.longitude)
-                distance = ((x-x2)**2 + (y-y2)**2)**0.5
-                if distance < 0.0015:
-                    post = injury()
-                    cat_id = cat.id
-                    post.cat_id = cat_id
-                    post.latitude = x
-                    post.longitude = y
-
-                    post.form_tag = request.POST['form_tag']
-                    post.date = timezone.now()
-                    post.injury_kind = request.POST['injury_kind']
-                    post.character = request.POST['character']
-                    post.author = request.user
-                    post.save()
-
-                    cat = Cat.objects.filter(id = cat_id).first()
-                    cat.injury_count = int(cat.injury_count)+1
-                    cat.save()
+        cat = Cat.objects.filter(id = cat_id).first()
+        cat.injury_count = int(cat.injury_count)+1
+        cat.save()
 
         return render(request,'account/main.html')
     else:

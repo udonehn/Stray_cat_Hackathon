@@ -43,7 +43,7 @@ class Snack(models.Model):
     author = models.EmailField(null=True)
     date = models.DateTimeField(auto_now_add=True)
 
-class injury(models.Model):
+class Injury(models.Model):
     cat_id = models.IntegerField(null=True) #고양이 등록 id
     date = models.DateTimeField(auto_now_add=True) #등록일
     injury_kind = models.TextField(blank=False) 

@@ -20,24 +20,14 @@
     <!-- custom css & js-->
     <link rel="stylesheet" href="{% static '/css/main1.css' %}">
 
-    <title>민원 신고</title>
+    <title>부상 신고</title>
 
 </head>
 
 <body>
- <!--   <span id="button_know_cat" style="cursor: pointer">어떤 고양이가 문제를 일으키는지 알아요</span> 버튼이니까 잘 꾸며줘 
-    <span> | </span>
-    <span id="button_dont_know_cat" style="cursor: pointer">어떤 고양이가 문제를 일으키는지 모르겠어요</span>
-    <br><br><br>
--->
     <!-- 어떤 고양이가 문제인지 알아요! -->
     <div id="know_cat_div" style="display: block">
         <center><div id="map1" style="width:500px;height:400px;"></div></center><!-- 지도 -->
-    </div>
-
-    <!-- 어떤 고양이가 문제인지 모르겠어요! -->
-    <div id="dont_know_cat_div" style="display: block">
-        <center><div id="map2" style="width:500px;height:400px;"></div></center><!-- 지도 -->
     </div>
 
     <div>
@@ -202,67 +192,11 @@
             }
         }
 
-        function dont_know_map_set() {
-            var mapContainer = document.getElementById('map2'),
-                mapOption = {
-                    center: new kakao.maps.LatLng(37.6385963847980, 127.1076728599100), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
-                };
-
-            var map2 = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-            // 지도를 클릭한 위치에 표출할 마커입니다
-            var marker2 = new kakao.maps.Marker({
-                // 지도 중심좌표에 마커를 생성합니다                             이거 마커 위치를 사용자 위치로 설정하도록 해야함
-                position: map2.getCenter()
-            });
-            // 지도에 마커를 표시합니다
-            marker2.setMap(map2);
-
-            // 지도에 클릭 이벤트를 등록합니다
-            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-            kakao.maps.event.addListener(map2, 'click', function (mouseEvent) {
-
-                // 클릭한 위도, 경도 정보를 가져옵니다 
-                var latlng = mouseEvent.latLng;
-
-                // 마커 위치를 클릭한 위치로 옮깁니다
-                marker2.setPosition(latlng);
-
-                document.getElementById('latitude').value = latlng.getLat();
-                document.getElementById('longitude').value = latlng.getLng();
-            });
-        }
+        
     </script>
     <!-- 지도 초기화 -->
     <script>
         know_map_set()
-        dont_know_map_set()
-        $("#dont_know_cat_div").css({
-                display : 'none'
-            });
-    </script>
-    <!-- 선택 버튼 코드-->
-    <script>
-        var form_tag = 0; //0이면 고양이 안다, 1이면 모른다.
-        $("#button_know_cat").click(function () {
-            $("#know_cat_div").css({
-                display : 'block'
-            });
-            $("#dont_know_cat_div").css({
-                display : 'none'
-            });
-            form_tag = 0;
-        });
-        $("#button_dont_know_cat").click(function () {
-            $("#know_cat_div").css({
-                display : 'none'
-            });
-            $("#dont_know_cat_div").css({
-                display : 'block'
-            });
-            form_tag = 1;
-        });
     </script>
     <!-- 폼 관련 코드-->
     <script>
@@ -282,20 +216,12 @@
             });
 
             fd.set('csrfmiddlewaretoken', csrf[0].value)
-            fd.set('form_tag', form_tag); //폼테그 정보 넣기(백엔드에서 처리 방식이 달라짐)
             fd.set('character', characterInput); //추가로 적을 사항 텍스트 에어리어
             fd.set('injury_kind', checked_list);
 
-            if((form_tag == 0 && cat_id != -1) || form_tag == 1){
-                if(form_tag == 0){ //if 고양이를 알 때
-                    //console.log(cat_id)
-                    fd.set('cat_id', cat_id);
-                }
-                else{ //else 고양이를 모를 때
-                    fd.set('latitude', latitudeInput)
-                    fd.set('longitude', longitudeInput)
-                }
-                //수정 필요
+            if(cat_id != -1){
+                fd.set('cat_id', cat_id);
+
                 $.ajax({
                     type:'POST',
                     url: injuryForm.action,

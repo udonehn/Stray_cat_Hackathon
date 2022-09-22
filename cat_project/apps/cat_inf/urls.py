@@ -24,6 +24,6 @@ urlpatterns = [
     path('complaint/', views.complaint, name='complaint'),
     path('feed/', views.feed, name='feed'),
     path('Snack/', views.snack, name='Snack'),
-    path('injury/', views.Injury, name='injury'),
+    path('injury/', views.injury, name='injury'),
 
 ]
