@@ -70,9 +70,15 @@
     <h1>음식 주는 버튼</h1>
     <input type="submit" class="" id="feed-btn" value="등록">
 
+    <h1>간식 주는 버튼</h1>
+    <input type="submit" class="" id="Snack-btn" value="등록">
+
     <br><br>
     <h1>마지막으로 사료를 준 시간</h1>
     <span>{{ last_feed_data.date }}</span><br><br><br><br><br><br><br>
+
+    <h1>마지막으로 간식를 준 시간</h1>
+    <span>{{ last_Snack_data.date }}</span><br><br><br><br><br><br><br>
 
     <h1>민원 정보</h1>
     <!-- 민원 정보 div 반복생성문 -->
@@ -157,6 +163,40 @@
             })
         });
     </script>
+
+    <!-- 간식 등록코드 -->
+    <script>
+        const confirmBtn_Snack = document.getElementById('Snack-btn') //등록버튼
+        const csrf_Snack = document.getElementsByName('csrfmiddlewaretoken')
+
+        //북마크 아이콘 관리
+        confirmBtn_Snack.addEventListener('click', ()=>{
+            var cat_id = $('#cat_id').text();
+            console.log(cat_id);
+            
+            const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+            const fd = new FormData();
+            fd.append('csrfmiddlewaretoken', csrf[0].value)
+            fd.append('cat_id', Number(cat_id))
+
+            $.ajax({
+                type:'POST',
+                url: "{% url 'Snack' %}",
+                data: fd,
+                success: function(response){
+                    console.log('success')
+                },
+                error: function(error){
+                    console.log('error', error)
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+            })
+        });
+    </script>
+
 </body>
 
 </html>

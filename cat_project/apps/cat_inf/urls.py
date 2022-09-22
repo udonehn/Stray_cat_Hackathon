@@ -23,4 +23,5 @@ urlpatterns = [
     path('getApi_marked/', views.getApi_marked, name='getApi_marked'),
     path('complaint/', views.complaint, name='complaint'),
     path('feed/', views.feed, name='feed'),
+    path('Snack/', views.snack, name='Snack'),
 ]

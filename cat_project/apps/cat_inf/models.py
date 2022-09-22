@@ -36,3 +36,8 @@ class Feed(models.Model):
     cat_id = models.IntegerField(null=True)
     author = models.EmailField(null=True)
     date = models.DateTimeField(auto_now_add=True)
+    
+class Snack(models.Model):
+    cat_id = models.IntegerField(null=True)
+    author = models.EmailField(null=True)
+    date = models.DateTimeField(auto_now_add=True)

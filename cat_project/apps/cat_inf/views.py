@@ -4,7 +4,7 @@ import json
 from urllib import request
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from cat_inf.models import Cat, Complaint, Feed
+from cat_inf.models import Cat, Complaint, Feed, Snack
 from account.models import User,Bookmark
 from django.http import HttpResponse
 from django.core import serializers
@@ -114,6 +114,17 @@ def feed(request):
 
         post.save()
     return render(request,'account/main.html')
+
+def snack(request):
+    if(request.method == 'POST'):
+        post = Snack()
+        post.cat_id = int(float(request.POST['cat_id']))
+        print(int(request.POST['cat_id']))
+        post.date = timezone.now()
+        post.author = request.user
+        post.save()
+    return render(request,'account/main.html')
+
 
 #여기부터는 코드에 사용되는 함수
 
