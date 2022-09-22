@@ -16,6 +16,7 @@ class Cat(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE ,null=True)
     id = models.AutoField(primary_key=True)
     complaint_count = models.IntegerField(default=0) #민원 횟수
+    injury_count = models.IntegerField(default=0)
     #어드민 창에서 데이터 name 필드를 이름으로 쓰는 코드
     def __str__(self):
         return self.name
@@ -41,3 +42,10 @@ class Snack(models.Model):
     cat_id = models.IntegerField(null=True)
     author = models.EmailField(null=True)
     date = models.DateTimeField(auto_now_add=True)
+
+class injury(models.Model):
+    cat_id = models.IntegerField(null=True) #고양이 등록 id
+    date = models.DateTimeField(auto_now_add=True) #등록일
+    injury_kind = models.TextField(blank=False) 
+    character = models.TextField(null=True) #특징(기타 사항)
+    author = models.EmailField()

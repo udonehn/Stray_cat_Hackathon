@@ -49,8 +49,13 @@
                     경계도: {{cat.alert}}<br>
                     {% if cat.complaint_count != 0 %}
                         <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
-                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span>
+                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span><br>
                     {% endif %}
+                    {% if cat.injury_count != 0 %}
+                    <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
+                    <span style="color: rgb(230, 57, 45);">부상 발생!</span>
+                    {% endif %}
+
                 </div>
             </div>
         {% endfor %}
@@ -65,7 +70,11 @@
                     경계도: {{cat.alert}}<br>
                     {% if cat.complaint_count != 0 %}
                         <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
-                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span>
+                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span><br>
+                    {% endif %}
+                    {% if cat.injury_count != 0 %}
+                    <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
+                    <span style="color: rgb(230, 57, 45);">부상 발생!</span>
                     {% endif %}
                 </div>
             </div>

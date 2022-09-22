@@ -6,7 +6,7 @@ from account.models import User,Bookmark
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib import messages
-from cat_inf.models import Cat, Complaint, Feed, Snack
+from cat_inf.models import Cat, Complaint, Feed, Snack, injury
 import json
 from collections import Counter
 
@@ -114,12 +114,15 @@ def detail(request, cat_id):
     complaint_list = Complaint.objects.filter(cat_id=cat_id)
     last_feed_data = Feed.objects.filter(cat_id=cat_id).last()
     last_Snack_data = Snack.objects.filter(cat_id=cat_id).last()
+    injury_list = injury.objects.filter(cat_id=cat_id)
 
     content = dict(
         cat_detail=cat_detail, 
         complaint_list=complaint_list,
         last_feed_data=last_feed_data,
-        last_Snack_data=last_Snack_data
+        last_Snack_data=last_Snack_data,
+        injury_list=injury_list,
+
         )
     return render(request, 'account/detail.html',content)
 
@@ -131,6 +134,10 @@ def mypage(request):
 
     complaint_find_list = list(set(booked_id_list + my_cat_id_list))
     complaint_list = Complaint.objects.filter(cat_id__in = complaint_find_list)
+    
+    injury_find_list = list(set(booked_id_list + my_cat_id_list))
+    injury_list = injury.objects.filter(cat_id__in = injury_find_list)
+
     
     my_cat_list = Cat.objects.filter(id__in=my_cat_id_list)
     booked_cat_list = Cat.objects.filter(id__in=booked_id_list)
