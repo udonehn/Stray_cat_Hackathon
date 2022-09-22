@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400&display=swap');
+ 
+span {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 50px;
+  border-radius : 20px;
+  padding : 8px;
+}
+
+span:hover {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
+  padding : 5px;
+}
+
+body {
+  background-color: #fce1e1;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  text-align : center;
+}

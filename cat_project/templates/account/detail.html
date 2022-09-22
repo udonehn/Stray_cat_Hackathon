@@ -20,7 +20,7 @@
     Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
     <!-- custom css & js-->
-    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" href="{% static '/css/detail.css' %}">
 
     <title>디테일페이지</title>
 </head>
@@ -42,26 +42,46 @@
 
     <!-- 추가!!!!!! 밥 줬을 때 누르는 버튼은 만듦! -->
     <!-- 갑자기 발견했는데 이 폰트 힣같은 이상한 글자는 폰트가 안먹음 -->
-    <h1>이름</h1>
-    {{cat_detail.name}}
-    <h1>등록일</h1>
-    {{cat_detail.date}}
-    <h1>종 이름</h1>
-    {{cat_detail.species}}
-    <h1>성별</h1>
-    {{cat_detail.sex}}
-    <h1>중성화 여부</h1>
-    {{cat_detail.neutral}}
-    <h1>사람 경계도</h1>
-    {{cat_detail.alert}}
-    <h1>특징</h1>
-    {{cat_detail.character}}
-    <h1>등록자</h1>
-    {{cat_detail.author}}
-    <h1>등록번호(고양이 등록 id)</h1>
-    {{cat_detail.id}}
-    <h1>이미지</h1>
-    {{cat_detail.photo}}
+        <div>
+            <div style="display: inline-block;"><image src="/static/media/{{cat_detail.photo}}"></div>
+                <div style="display: inline-block;">
+            <h2>이름</h2>
+            <p>{{cat_detail.name}}</p>
+        
+        
+            <h2>등록일</h2>
+            <p>{{cat_detail.date}}</p>
+        
+        
+            <h2>종이름</h2>
+            <p>{{cat_detail.species}}</p>
+        
+        
+            <h2>성별</h2>
+            <p>{{cat_detail.sex}}</p>
+        
+        
+            <h2>중성화 여부</h2>
+            <p>{{cat_detail.neutral}}</p>
+        
+        
+            <h2>사람 경계도</h1>
+            <p>{{cat_detail.alert}}</p>
+        
+        
+            <h2>특징</h2>
+            <p>{{cat_detail.character}}</p>
+        
+        
+            <h2>등록자</h2>
+            <p>{{cat_detail.author}}</p>
+        
+        
+            </div>
+        </div>
+        
+            
+        
 
     <form method="post" action="{% url 'feed' %}">
         {% csrf_token %}
@@ -111,7 +131,7 @@
         var container = document.getElementById('map');
         var options = {
             center: new kakao.maps.LatLng(latitude, longitude),
-            level: 3 //지도 최초 표시될 때 확대 정도
+            level: 2 //지도 최초 표시될 때 확대 정도
         };
         var map = new kakao.maps.Map(container, options);
 

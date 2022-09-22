@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <!-- custom css & js-->
-    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" href="{% static '/css/mypage.css' %}">
 
     <title>마이페이지</title>
 </head>
@@ -33,7 +33,6 @@
     <div>{{user.name}}</div>
     <br>
     <span id="button_my_cat_list" style="cursor: pointer">내 고양이 보기</span><!-- 버튼이니까 잘 꾸며줘 -->
-    <span> | </span>
     <span id="button_booked_cat_list" style="cursor: pointer">북마크 고양이 보기</span><!-- 얘도! -->
     <br>
     <!-- 여기가 고양이 div 생성하는 부분이야. for문 안에있는 html코드가 반복되면서 페이지가 생성되는 형식이니까 그거 알고 꾸며주면 돼. -->

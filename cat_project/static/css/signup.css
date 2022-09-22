@@ -45,16 +45,20 @@ input[type=submit] {
   font-family : "Gaegu", serif;
   font-size : 20px;
   font-weight:bold;
-  width: 160px; 
-  height: 40px;
+  color : maroon;
+  width : 160px; 
+  height : 40px;
+  border: none;
+  border-radius : 20px;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover{
   background-color : #fcbbbb;
   border : 3px solid #fca2a2;
   font-family : "Gaegu", serif;
   font-size : 20px;
   font-weight : bold;
+  color : maroon;
   width : 160px; 
   height : 40px;
   cursor : pointer;

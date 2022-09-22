@@ -65,6 +65,7 @@ input[type=radio]:checked {
 input[type=submit] {
   font-family : "Gaegu", serif;
   font-size : 30px;
+  color : maroon;
   background-color : #fcbbbb;
   border : 3px solid #fcbbbb;
   margin : 50px;
@@ -77,6 +78,7 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color : #fcbbbb;
   border : 3px solid #fca2a2;
+  color : maroon;
   font-family : "Gaegu", serif;
   font-size : 30px;
   cursor : pointer;
