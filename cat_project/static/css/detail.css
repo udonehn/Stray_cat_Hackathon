@@ -9,3 +9,35 @@ body {
 p{
   font-size : 25px;
 }
+a {
+  font-size : 20px;
+  text-decoration : none;
+  background-color: #fcbbbb;
+  color: maroon;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius : 20px;
+  padding : 10px;
+  margin-left : -10px;
+  margin-top : 60px;
+  width : 150px;
+}
+.problem {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 50px;
+  border-radius : 20px;
+  padding : 8px;
+}
+
+.problem:active {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
+  padding : 5px;
+}

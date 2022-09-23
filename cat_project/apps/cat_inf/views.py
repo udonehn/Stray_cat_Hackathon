@@ -8,6 +8,7 @@ from cat_inf.models import Cat, Complaint, Feed, Snack, Injury
 from account.models import User,Bookmark
 from django.http import HttpResponse
 from django.core import serializers
+import datetime as dt
 
 def post(self, request):
     cats_id = request.data.get('cats_id', None)
@@ -127,23 +128,41 @@ def injury(request):
 def feed(request):
     if(request.method == 'POST'):
         post = Feed()
-        post.cat_id = int(float(request.POST['cat_id']))
-        print(int(request.POST['cat_id']))
+        cat_id = int(float(request.POST['cat_id']))
+        post.cat_id = cat_id
         post.date = timezone.now()
         post.author = request.user
-
         post.save()
-    return render(request,'account/main.html')
+
+        last_feed_data = Feed.objects.filter(cat_id=cat_id).last()
+        date = last_feed_data.date
+
+        ampm = date.strftime('%p')
+        ampm_kr = '오전' if ampm == 'AM' else '오후'
+        hour = (date.hour+12) if ampm == 'AM' else (date.hour-12)
+
+        data = f'{date.year}년 {date.month}월 {date.day}일 {hour}:{date.minute} {ampm_kr}'
+    return HttpResponse(data)
 
 def snack(request):
     if(request.method == 'POST'):
         post = Snack()
-        post.cat_id = int(float(request.POST['cat_id']))
+        cat_id = int(float(request.POST['cat_id']))
+        post.cat_id = cat_id
         print(int(request.POST['cat_id']))
         post.date = timezone.now()
         post.author = request.user
         post.save()
-    return render(request,'account/main.html')
+
+        last_snack_data = Snack.objects.filter(cat_id=cat_id).last()
+        date = last_snack_data.date
+
+        ampm = date.strftime('%p')
+        ampm_kr = '오전' if ampm == 'AM' else '오후'
+        hour = (date.hour+12) if ampm == 'AM' else (date.hour-12)
+
+        data = f'{date.year}년 {date.month}월 {date.day}일 {hour}:{date.minute} {ampm_kr}'
+    return HttpResponse(data)
 
 
 #여기부터는 코드에 사용되는 함수

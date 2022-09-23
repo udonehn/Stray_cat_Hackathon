@@ -9,6 +9,8 @@ from django.contrib import messages
 from cat_inf.models import Cat, Complaint, Feed, Snack, Injury
 import json
 from collections import Counter
+from django.http import HttpResponse
+from django.core import serializers
 
 """
 name = models.CharField(max_length = 100) #이름
@@ -125,6 +127,17 @@ def detail(request, cat_id):
 
         )
     return render(request, 'account/detail.html',content)
+
+def cat_food_Api(request, cat_id):
+    last_feed_data1 = Feed.objects.filter(cat_id=cat_id).last()
+    print(last_feed_data1)
+    last_feed_data = serializers.serialize('json', last_feed_data1)
+    return HttpResponse(last_feed_data, content_type="text/json-comment-filtered")
+
+def cat_snack_Api(request, cat_id):
+    last_Snack_data = Snack.objects.filter(cat_id=cat_id).last()
+    last_Snack_data = serializers.serialize('json', last_Snack_data)
+    return HttpResponse(last_Snack_data, content_type="text/json-comment-filtered")
 
 def mypage(request):
     user_id = request.user

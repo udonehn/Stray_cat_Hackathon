@@ -48,7 +48,7 @@
             <input id="longitude" name="longitude" type="hidden" value=127.1076728599100> <!-- 경도 보내는 부분 -->
             <br><br>
         </form>
-        <span class ="submit"style="cursor: pointer" input type="submit">등록</span>
+        <span id="confirm-btn" class ="submit"style="cursor: pointer" input type="submit">등록</span>
     </div>
 
     <!-- 지도 세팅 함수 코드-->
@@ -199,12 +199,11 @@
     </script>
     <!-- 폼 관련 코드-->
     <script>
-        const confirmBtn = document.getElementById('confirm-btn') //등록버튼
         const injuryForm = document.getElementById('injury-form') //폼테그
         const csrf = document.getElementsByName('csrfmiddlewaretoken')
         const fd = new FormData();
 
-        confirmBtn.addEventListener('click', ()=>{
+        $("#confirm-btn").click(function () {
             var characterInput = $('#textarea').val();
             var latitudeInput = $('input[name=latitude]').val();
             var longitudeInput = $('input[name=longitude]').val();

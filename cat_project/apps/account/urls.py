@@ -28,4 +28,7 @@ urlpatterns = [
     path('mypage/', views.mypage, name = 'mypage'),
     path('url_test/', views.url_test, name = 'url_test'),
 
+    #Api
+    path('cat_food_Api/<str:cat_id>/', views.cat_food_Api, name='cat_food_Api'),
+    path('cat_snack_Api/<str:cat_id>/', views.cat_snack_Api, name='cat_snack_Api'),
 ]

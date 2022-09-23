@@ -64,17 +64,8 @@ input[type=checkbox]:checked {
   padding : 5px;
 }
 
-.check {
-  background-color : #fcbbbb;
-  border : 3px solid #fcbbbb;
-  border-radius : 20px;
-  padding : 8px;
-}
-
 .marker {
   padding:5px;
-  position: absolute; 
-  left: 0px; top: 0px;
 }
 
 input[type=submit] {
