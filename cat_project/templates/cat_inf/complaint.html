@@ -29,19 +29,23 @@
     <div>
         <h1>민원 입력</h1>
         어떤 고양이가 문제를 일으키는지<br><br>
-        <span class ="problem" id="button_know_cat" style="cursor: pointer"> 알아요</span><!-- 버튼이니까 잘 꾸며줘 -->
-        <span class ="problem" id="button_dont_know_cat" style="cursor: pointer"> 모르겠어요</span><!-- 얘도! -->
+        <span class="problem" id="button_know_cat" style="cursor: pointer"> 알아요</span><!-- 버튼이니까 잘 꾸며줘 -->
+        <span class="problem" id="button_dont_know_cat" style="cursor: pointer"> 모르겠어요</span><!-- 얘도! -->
         <br><br><br>
 
         <!-- 어떤 고양이가 문제인지 알아요! -->
         <div id="know_cat_div" style="display: block">
-            <center><div id="map1" style="width:500px;height:400px;"></div></center><!-- 지도 -->
+            <center>
+                <div id="map1" style="width:500px;height:400px;"></div>
+            </center><!-- 지도 -->
         </div>
 
         <!-- 어떤 고양이가 문제인지 모르겠어요! -->
         <div id="dont_know_cat_div" style="display: block">
-            <center><div id="map2" style="width:500px;height:400px;"></div></center><!-- 지도 -->
-    </div>
+            <center>
+                <div id="map2" style="width:500px;height:400px;"></div>
+            </center><!-- 지도 -->
+        </div>
         <form method="post" action="{% url 'complaint' %}" id="complaint-form">
             {% csrf_token %}
             <br>
@@ -52,15 +56,14 @@
             <input name="complaint_kind" type="checkbox" value="기타">기타
             <br><br><br>
             특이사항:
-            <textarea rows="5" cols="30" name="character"
-                placeholder="상세설명, 기타 사항을 적어주세요" id="textarea"></textarea>
+            <textarea rows="5" cols="30" name="character" placeholder="상세설명, 기타 사항을 적어주세요" id="textarea"></textarea>
             <br><br>
 
             <input id="latitude" name="latitude" type="hidden" value=37.6385963847980> <!-- 위도 보내는 부분 -->
             <input id="longitude" name="longitude" type="hidden" value=127.1076728599100> <!-- 경도 보내는 부분 -->
         </form>
-        <span class ="submit"style="cursor: pointer" input type="submit">등록</span>
-        
+        <span class="submit" style="cursor: pointer" input type="submit">등록</span>
+
     </div>
 
     <!-- 지도 세팅 함수 코드-->
@@ -91,7 +94,8 @@
                         positions.push({
                             title: data[i].fields.name,
                             latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
-                            content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species} <br><div>${data[i].pk}</div>`,
+                            content1: `<div style="display: inline-block;"><image src="/static/media/${data1}" width="120px"></div>`,
+                            content2: `<div style="padding:5px;">${data[i].fields.name}</div>`,
                             id: data[i].pk
                         });
                         //이미지 정보 추가
@@ -131,7 +135,7 @@
             });
 
             var imageSize = new kakao.maps.Size(33, 33); // 마커 이미지의 이미지 크기 입니다
-             var infowindow_list = [];
+            var infowindow_list = [];
             $.ajax({
                 url: "{% url 'getApi_marked' %}",
                 dataType: "json",
@@ -156,26 +160,30 @@
                         var iwContent;
 
                         if (data.list[i].is_marked) {
-                            iwContent = `<div id="${positions[i].id}"; class="marker"; style="padding:5px;">
-                                        ${positions[i].content}<br>
-                                        <span class="bookmark material-icons" style="color: rgb(255, 220, 21);"> bookmark </span>
-                                        <h4>현재 선택됨</h4>
-                                    </div>` // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwContent = `<div id="${positions[i].id}"; class="marker";>
+                                <span class="bookmark material-icons" style="float: right; color: rgb(255, 220, 21);">bookmark </span><br>
+                                            <div style="width:150px;text-align:center;padding:6px;>
+                                                ${positions[i].content1}
+                                            </div>
+                                            ${positions[i].content2}
+                                            <div class="check"><h4>현재 선택됨</h4></div> 
+                                        </div>` // 도와줘요, 여기 check가 안먹음 submit저럼 현재 선택됨 부분을 동그랗게 만들고 싶어
                         }
                         else {
-                            iwContent = `<div id="${positions[i].id}"; class="marker"; style="padding:5px;">
-                                        ${positions[i].content}<br>
-                                        <span class="bookmark material-icons" style="color: rgb(255, 220, 21);"> bookmark_border </span>
-                                        <h4>현재 선택됨</h4>
-                                    </div>` // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwContent = `<div id="${positions[i].id}"; class="marker";>
+                                <span class="bookmark material-icons" style="float: right; color: rgb(255, 220, 21);">bookmark_border </span><br>
+                                            <div style="width:150px;text-align:center;padding:6px;>
+                                                ${positions[i].content1}
+                                            </div>
+                                            ${positions[i].content2}
+                                            <div class="check"><h4>현재 선택됨</h4></div> 
+                                        </div>` // 도와줘요, 여기 check 클래스가 안먹음... submit저럼 현재 선택됨 부분을 동그랗게 만들고 싶어, 그리고 이미지 겉에 동그랗게 밖에 흰색이랑 분리되는 선을 만들고 싶어
                         }
 
-                        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                         // 마커에 표시할 인포윈도우를 생성합니다 
                         var infowindow = new kakao.maps.InfoWindow({
                             content: iwContent,
-                            removable: iwRemoveable
                         });
                         infowindow_list.push(infowindow);
                         // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
@@ -193,7 +201,7 @@
 
             function makeOverListener(map, marker, infowindow, de) {
                 return function () {
-                    for(i=0; i<infowindow_list.length; i++){
+                    for (i = 0; i < infowindow_list.length; i++) {
                         infowindow_list[i].close()
                     }
                     infowindow.open(map, marker);
@@ -240,27 +248,27 @@
         know_map_set()
         dont_know_map_set()
         $("#dont_know_cat_div").css({
-                display : 'none'
-            });
+            display: 'none'
+        });
     </script>
     <!-- 선택 버튼 코드-->
     <script>
         var form_tag = 0; //0이면 고양이 안다, 1이면 모른다.
         $("#button_know_cat").click(function () {
             $("#know_cat_div").css({
-                display : 'block'
+                display: 'block'
             });
             $("#dont_know_cat_div").css({
-                display : 'none'
+                display: 'none'
             });
             form_tag = 0;
         });
         $("#button_dont_know_cat").click(function () {
             $("#know_cat_div").css({
-                display : 'none'
+                display: 'none'
             });
             $("#dont_know_cat_div").css({
-                display : 'block'
+                display: 'block'
             });
             form_tag = 1;
         });
@@ -272,13 +280,13 @@
         const csrf = document.getElementsByName('csrfmiddlewaretoken')
         const fd = new FormData();
 
-        confirmBtn.addEventListener('click', ()=>{
+        confirmBtn.addEventListener('click', () => {
             var characterInput = $('#textarea').val();
             var latitudeInput = $('input[name=latitude]').val();
             var longitudeInput = $('input[name=longitude]').val();
             var checked_list = [];
 
-            $("input:checkbox[name=complaint_kind]:checked").each(function() {
+            $("input:checkbox[name=complaint_kind]:checked").each(function () {
                 checked_list.push($(this).val()); // 체크된 값의 value값 가져오기
             });
 
@@ -287,26 +295,26 @@
             fd.set('character', characterInput); //추가로 적을 사항 텍스트 에어리어
             fd.set('complaint_kind', checked_list);
 
-            if((form_tag == 0 && cat_id != -1) || form_tag == 1){
-                if(form_tag == 0){ //if 고양이를 알 때
+            if ((form_tag == 0 && cat_id != -1) || form_tag == 1) {
+                if (form_tag == 0) { //if 고양이를 알 때
                     //console.log(cat_id)
                     fd.set('cat_id', cat_id);
                 }
-                else{ //else 고양이를 모를 때
+                else { //else 고양이를 모를 때
                     fd.set('latitude', latitudeInput)
                     fd.set('longitude', longitudeInput)
                 }
                 //수정 필요
                 $.ajax({
-                    type:'POST',
+                    type: 'POST',
                     url: complaintForm.action,
                     enctype: 'form-data',
                     data: fd,
-                    success: function(response){
+                    success: function (response) {
                         console.log('success')
                         //location.replace('http://127.0.0.1:8000/'); 
                     },
-                    error: function(error){
+                    error: function (error) {
                         console.log('error', error)
                     },
                     cache: false,
@@ -314,12 +322,12 @@
                     processData: false,
                 })
             }
-            else{
+            else {
                 //다른 오류 경우들
-                if(cat_id == -1){
+                if (cat_id == -1) {
                     alert("고양이가 선택되지 않았습니다.")
                 }
-                else{
+                else {
                     alert("오류")
                 }
             }
