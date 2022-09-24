@@ -32,10 +32,12 @@ def create(request):
         post.character = request.POST['character']
         post.latitude = request.POST['latitude']
         post.longitude = request.POST['longitude']
-        post.photo = mask_circle_transparent(request.FILES['photo'])
+        photo = mask_circle_transparent(request.FILES['photo'])
         post.author = request.user
         post.save()
     return render(request,'cat_inf/create.html')
+
+
 
 def getApi(request):
     cats = Cat.objects.all()
@@ -209,7 +211,6 @@ def mask_circle_transparent(data, offset=0):
     input_file = BytesIO(data.read())
     img = Image.open(input_file)
     offset = offset
-    
     #동그라미 필터 생성
     mask = Image.new("L", img.size, 0)
     draw = ImageDraw.Draw(mask)

@@ -2,6 +2,7 @@
  
 body {
   background-color: #fce1e1;
+  text-align:center;
 }
 
 p {
@@ -30,8 +31,8 @@ form {
   border : 2px solid #fcbbbb;
   border-radius : 20px;
   padding : 10px;
-  margin-left : 400px;
-  margin-right : 400px;
+  margin-left : 35%;
+  margin-right : 35%;
 }
 
 input[type=text] {
@@ -71,8 +72,6 @@ input[type=submit] {
   margin : 50px;
   border-radius : 20px;
   padding : 10px;
-  margin-left : 610px;
-  margin-right : 610px;
 }
 
 input[type=submit]:hover {
@@ -95,4 +94,67 @@ div.box2{
   text-align: center; 
   width: 400px; 
   height: 500px;
+}
+.mb-3{
+  width: 100%; 
+}
+
+.problem {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 50px;
+  border-radius : 20px;
+  padding : 8px;
+}
+
+.problem:hover {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
+  padding : 5px;
+}
+
+
+/* 모달 */
+
+.modal_overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+}
+
+.modal_window {
+  background: white;
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 800px;
+  height: 600px;
+  position: relative;
+  padding: 10px;
+}
+.modal_title{
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.modal_title_side{
+  flex: 0 0 40px;
+  text-align: center;
 }

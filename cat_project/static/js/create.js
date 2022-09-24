@@ -31,7 +31,7 @@ imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
 
     const img_data = imageInput.files[0] //입력된 이미지 파일 정보 받아옴
     const url = URL.createObjectURL(img_data) //이미지의 웹상 url 생성
-    
+
     imageBox.innerHTML = `<img src="${url}" id="image" width="700px">` //이미지 박스에 이미지 표시
     var $image = $('#image') //$:jquary기호 , #:id 기호
 
@@ -53,7 +53,7 @@ imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
             sexInput = $('input[name=sex]:checked').val();
             neutralInput = $('input[name=neutral]:checked').val();
             alertInput = $('input[name=alert]:checked').val();
-            characterInput = $('input[name=character]').val();
+            var characterInput = $('#textarea').val();
             latitudeInput = $('input[name=latitude]').val();
             longitudeInput = $('input[name=longitude]').val();
 
@@ -87,4 +87,4 @@ imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
             })
         })
     })
-})
+});
