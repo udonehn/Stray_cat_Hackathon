@@ -63,3 +63,12 @@ div {
 .marker {
   padding:5px;
 }
+
+.check{
+  background-color : #fcbbbb;
+  border : 3px solid #fca2a2;
+  color : maroon;
+  font-family : "Gaegu", serif;
+  font-size : 30px;
+  cursor : pointer;
+}
