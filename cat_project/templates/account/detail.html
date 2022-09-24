@@ -58,12 +58,12 @@
             
             <span class="problem" id="feed-btn" style="cursor: pointer">음식 버튼</span>
             <span id="feed_date">마지막 배식: {{ last_feed_data.date }}</span>
-            <br><br>
+            <br><br><br>
             <span class="problem" id="snack-btn" style="cursor: pointer">간식 버튼</span>
             <span id="snack_date">마지막 간식: {{ last_Snack_data.date }}</span>
 
             <br>
-            <a href="{% url 'injury' %}">부상 신고</a>
+            <a href="{% url 'injury' %}">부상 신고</a>&nbsp&nbsp
             <a href="{% url 'complaint' %}">민원 신고</a><br><br>
 
             <hr style="width: 60%;"><br>
