@@ -18,34 +18,28 @@ a {
   display: inline-block;
   border-radius : 20px;
   padding : 10px;
-  margin-left : -10px;
-  margin-top : 60px;
   width : 150px;
 }
 
-/*
-span {
-    font-family : "Gaegu", serif;
-    font-size : 20px;
-    background-color : #fcbbbb;
-    border : 3px solid #fcbbbb;
-    margin : 50px;
-    border-radius : 20px;
-    padding : 8px;
-  }
-  
-  span:hover {
-    border : 3px solid #fca2a2;
-    font-family : "Gaegu", serif;
-    font-size : 20px;
-    cursor : pointer;
-    padding : 5px;
-  }
-  
-  body {
-    background-color: #fce1e1;
-    font-family : "Gaegu", serif;
-    font-size : 20px;
-    text-align : center;
-  }
-  */
+.problem {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 10px;
+  border-radius : 20px;
+  padding : 8px;
+}
+
+.problem:active {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
+  padding : 5px;
+}
+
+.name{
+  font-size : 27px;
+  font: bold;
+}

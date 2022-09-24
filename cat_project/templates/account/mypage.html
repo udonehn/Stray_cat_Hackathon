@@ -32,52 +32,59 @@
     <!-- https://fonts.google.com/icons 여기에서 아이콘 찾아서 쓰면 됨, 방법은 알면 그냥 하고 아니면 나한테 문의 -->
     <div>{{user.name}}</div>
     <br>
-    <span id="button_my_cat_list" style="cursor: pointer">내 고양이 보기</span><!-- 버튼이니까 잘 꾸며줘 -->
-    <span id="button_booked_cat_list" style="cursor: pointer">북마크 고양이 보기</span><!-- 얘도! -->
+    <span id="button_my_cat_list" class="problem" style="cursor: pointer">내 고양이 보기</span><!-- 버튼이니까 잘 꾸며줘 -->
+    <span id="button_booked_cat_list" class="problem" style="cursor: pointer">북마크 고양이 보기</span><!-- 얘도! -->
     <br>
     <!-- 여기가 고양이 div 생성하는 부분이야. for문 안에있는 html코드가 반복되면서 페이지가 생성되는 형식이니까 그거 알고 꾸며주면 돼. -->
     <!-- 그리고 여기에 고양이 최근 밥 준 시간, 건강상태같이 detail에서 주문한 거 넣을 수 있는 부분도 미리 만들어주면 좋을 것 같아. -->
 
     <!-- 내고양이 생성 부분 -->
-    <div id="my_cat_list" style="display: block">
-        {% for cat in my_cat_list %}
-            <div>
-                <div style="display: inline-block;"><a href='/account/detail/{{cat.id}}'><img src="{% get_media_prefix %}{{cat.photo}}" width="100px"></a></div>
-                <div style="display: inline-block;">
-                    {{cat.name}}<br>
-                    경계도: {{cat.alert}}<br>
-                    {% if cat.complaint_count != 0 %}
-                        <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
-                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span><br>
-                    {% endif %}
-                    {% if cat.injury_count != 0 %}
-                    <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
-                    <span style="color: rgb(230, 57, 45);">부상 발생!</span>
-                    {% endif %}
-
+    <br>
+    <!-- 여기 css파일에 정리하면 이상하게 다뀌니까 정리하지 말고 그냥 쓰자-->
+    <div style="display: flex; justify-content: center;">
+        <div id="my_cat_list" style="display: block;">
+            <hr style="width:100%;">
+            {% for cat in my_cat_list %}
+                <div style="display: flex; justify-content: left; margin-bottom: 10px;">
+                    <div style="display: inline-block; margin-right: 7px;"><a href='/account/detail/{{cat.id}}'><img src="{% get_media_prefix %}{{cat.photo}}" width="100px"></a></div>
+                    <div style="display: inline-block; text-align: left; margin-top: 3px;">
+                        <span class="name">{{cat.name}}</span><br>
+                        경계도: {{cat.alert}}<br>
+                        {% if cat.complaint_count != 0 %}
+                            <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
+                            <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span><br>
+                        {% endif %}
+                        {% if cat.injury_count != 0 %}
+                        <span class="material-symbols-outlined" style="color: rgb(255, 153, 0);" >error</span>
+                        <span style="color: rgb(255, 153, 0);">부상 발생!</span>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
     <!-- 즐찾 고양이 생성 부분 -->
-    <div id="booked_cat_list" style="display: none">
-        {% for cat in booked_cat_list %}
-            <div>
-                <div style="display: inline-block;"><a href='/account/detail/{{cat.id}}'><img src="{% get_media_prefix %}{{cat.photo}}" width="100px"></a></div>
-                <div style="display: inline-block;">
-                    {{cat.name}}<br>
-                    경계도: {{cat.alert}}<br>
-                    {% if cat.complaint_count != 0 %}
-                        <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
-                        <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span><br>
-                    {% endif %}
-                    {% if cat.injury_count != 0 %}
-                    <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
-                    <span style="color: rgb(230, 57, 45);">부상 발생!</span>
-                    {% endif %}
+    <div style="display: flex; justify-content: center;">
+        <div id="booked_cat_list" style="display: none">
+            <hr style="width:100%;">
+            {% for cat in booked_cat_list %}
+                <div style="display: flex; justify-content: left; margin-bottom: 10px;">
+                    <div style="display: inline-block; margin-right: 7px;"><a href='/account/detail/{{cat.id}}'><img src="{% get_media_prefix %}{{cat.photo}}" width="100px"></a></div>
+                    <div style="display: inline-block; text-align: left; margin-top: 3px;">
+                        <span class="name">{{cat.name}}</span><br>
+                        경계도: {{cat.alert}}<br>
+                        {% if cat.complaint_count != 0 %}
+                            <span class="material-symbols-outlined" style="color: rgb(230, 57, 45);" >error</span>
+                            <span style="color: rgb(230, 57, 45);">민원이 {{ cat.complaint_count }}개 발생</span><br>
+                        {% endif %}
+                        {% if cat.injury_count != 0 %}
+                        <span class="material-symbols-outlined" style="color: rgb(255, 153, 0);" >error</span>
+                        <span style="color: rgb(255, 153, 0);">부상 발생!</span>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 
     <!-- 버튼 스크립트 코드 -->

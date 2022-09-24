@@ -41,3 +41,23 @@ a {
   cursor : pointer;
   padding : 5px;
 }
+
+/* 고양이 생성부분 style코드를 css에 정리했더니 이상하게 적용됨 */
+.outer_div {
+  display: flex; 
+  justify-content: center;
+}
+.inner_div {
+  display: flex; 
+  justify-content: left; 
+  margin-bottom: 10px;
+}
+.image_div {
+  display: inline-block; 
+  margin-right: 7px;
+}
+.text_div {
+  display: inline-block; 
+  text-align: left; 
+  margin-top: 3px;
+}
