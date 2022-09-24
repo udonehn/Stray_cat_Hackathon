@@ -79,7 +79,8 @@
                         positions.push({
                             title: data[i].fields.name,
                             latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
-                            content: `<div style="padding:5px;">이름 : ${data[i].fields.name} <br>종 : ${data[i].fields.species} <br><div>${data[i].pk}</div>`,
+                            content1: `<div style="display: inline-block;"><image src="/static/media/${data1}" width="120px"></div>`,
+                            content2: `<div style="padding:5px;">${data[i].fields.name}</div>`,
                             id: data[i].pk
                         });
                         //이미지 정보 추가
@@ -144,26 +145,29 @@
                         var iwContent;
 
                         if (data.list[i].is_marked) {
-                            iwContent = `<div id="${positions[i].id}"; class="marker"; style="padding:5px;">
-                                        ${positions[i].content}<br>
-                                        <span class="bookmark material-icons" style="color: rgb(255, 220, 21);"> bookmark </span>
-                                        <h4>현재 선택됨</h4>
-                                    </div>` // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwContent = `<div id="${positions[i].id}"; class="marker";>
+                                <span class="bookmark material-icons" style="float: right; color: rgb(255, 220, 21);">bookmark </span><br>
+                                            <div style="width:150px;text-align:center;padding:6px;>
+                                                ${positions[i].content1}
+                                            </div>
+                                            ${positions[i].content2}
+                                            <div class="check"><h4>현재 선택됨</h4></div> 
+                                        </div>` // 도와줘요, 여기 check가 안먹음 submit저럼 현재 선택됨 부분을 동그랗게 만들고 싶어
                         }
                         else {
-                            iwContent = `<div id="${positions[i].id}"; class="marker"; style="padding:5px;">
-                                        ${positions[i].content}<br>
-                                        <span class="bookmark material-icons" style="color: rgb(255, 220, 21);"> bookmark_border </span>
-                                        <h4>현재 선택됨</h4>
-                                    </div>` // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwContent = `<div id="${positions[i].id}"; class="marker";>
+                                <span class="bookmark material-icons" style="float: right; color: rgb(255, 220, 21);">bookmark_border </span><br>
+                                            <div style="width:150px;text-align:center;padding:6px;>
+                                                ${positions[i].content1}
+                                            </div>
+                                            ${positions[i].content2}
+                                            <div class="check"><h4>현재 선택됨</h4></div> 
+                                        </div>` // 도와줘요, 여기 check 클래스가 안먹음... submit저럼 현재 선택됨 부분을 동그랗게 만들고 싶어, 그리고 이미지 겉에 동그랗게 밖에 흰색이랑 분리되는 선을 만들고 싶어
                         }
-
-                        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                         // 마커에 표시할 인포윈도우를 생성합니다 
                         var infowindow = new kakao.maps.InfoWindow({
                             content: iwContent,
-                            removable: iwRemoveable
                         });
                         infowindow_list.push(infowindow);
                         // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
