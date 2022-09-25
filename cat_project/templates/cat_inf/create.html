@@ -31,7 +31,7 @@
         
         <h1>정보 입력</h1>
         <form method="post" action="{% url 'create' %}" enctype="multipart/form-data" id="image-form">
-            <center><div id="map" style="width:30;height:30em;"></div></center> <!-- 지도 박스 -->
+            <center><div id="map" style="width:20em;height:20em;"></div></center> <!-- 지도 박스 -->
             <p><em>지도를 클릭해주세요!</em></p>
     
             {% csrf_token %}
