@@ -37,6 +37,11 @@ imageInput.addEventListener('change', ()=>{ //만약 파일이 선택된다면~
 
     $(imageInput).attr("disabled", true);
 
+    jQuery(function() {
+        $("#close_modal").css({display: 'block'});
+        $(".modal_title").css({display: 'none'});
+    });
+
     //image 변수에 선택된 영역 값을 담는 것 같음
     $image.cropper({
         aspectRatio: 1 / 1,

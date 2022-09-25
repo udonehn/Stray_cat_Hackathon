@@ -97,6 +97,7 @@ div.box2{
 }
 .mb-3{
   width: 100%; 
+  height: 100%; 
 }
 
 .problem {
@@ -114,7 +115,24 @@ div.box2{
   font-family : "Gaegu", serif;
   font-size : 20px;
   cursor : pointer;
-  padding : 5px;
+}
+
+.add {
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  width : 70px;
+  background-color : #fcbbbb;
+  border : 3px solid #fcbbbb;
+  margin : 20px;
+  border-radius : 20px;
+  padding : 8px;
+}
+
+.add:hover {
+  border : 3px solid #fca2a2;
+  font-family : "Gaegu", serif;
+  font-size : 20px;
+  cursor : pointer;
 }
 
 
