@@ -45,10 +45,11 @@
     <center><div id="map" style="width:500px;height:400px;"></div><!-- 지도 --></center>
     {% if user.is_authenticated %}
     <script>
-
+        var a = 37.643388210851406
+        var b = 127.10764129356582
         var container = document.getElementById('map');
         var options = {
-            center: new kakao.maps.LatLng(37.638596384798, 127.10767285991),
+            center: new kakao.maps.LatLng(a, b),
             level: 3 //지도 최초 표시될 때 확대 정도
         };
         var map = new kakao.maps.Map(container, options);
@@ -74,7 +75,7 @@
                         title: data[i].fields.name,
                         latlng: new kakao.maps.LatLng(data[i].fields.latitude, data[i].fields.longitude),
                         content1: `<div style="display: inline-block;"><image src="/static/media/${data1}" width="120px"></div>`,
-                        content2: `<div style="padding:5px;">${data[i].fields.name}</div>`,
+                        content2: `<div style="padding:5px;"><span class="name">${data[i].fields.name}</span><br>경계도: ${data[i].fields.alert}</div>`,
                         id: data[i].pk
                     });
                     //이미지 정보 추가
@@ -140,17 +141,17 @@
                     if (data.list[i].is_marked) {
                             iwContent = `<div id="${positions[i].id}"; class="marker";>
                                 <span class="bookmark material-icons" style="float: left; color: rgb(255, 220, 21);">bookmark </span><br>
-                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 15px solid rgb(252, 187, 187);border-radius: 50%;>
+                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 12px solid rgb(252, 187, 187);border-radius: 50%;>
                                                 ${positions[i].content1}
                                             </div>
                                             ${positions[i].content2}
-                                            <div class="check"><button type="botton" onclick="location.href='/account/detail/${de}'">추가 정보</button></div> 
+                                            <div><button type="botton" onclick="location.href='/account/detail/${de}'" class="check">추가 정보</button></div> 
                                         </div>` // 도와줘요, 여기 check가 안먹음 submit저럼 현재 선택됨 부분을 동그랗게 만들고 싶어
                         }
                         else {
                             iwContent = `<div id="${positions[i].id}"; class="marker";>
                                 <span class="bookmark material-icons" style="float: left; color: rgb(255, 220, 21);">bookmark_border </span><br>
-                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 15px solid rgb(252, 187, 187);border-radius: 50%;>
+                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 12px solid rgb(252, 187, 187);border-radius: 50%;>
                                                 ${positions[i].content1}
                                             </div>
                                             ${positions[i].content2}

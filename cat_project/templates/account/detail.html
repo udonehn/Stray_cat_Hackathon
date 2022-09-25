@@ -56,10 +56,10 @@
 
             <hr style="width: 60%;"><br>
             
-            <span class="problem" id="feed-btn" style="cursor: pointer">음식 버튼</span>
+            <span class="problem" id="feed-btn" style="cursor: pointer">방금 사료을 줬어요</span>
             <span id="feed_date">마지막 배식: {{ last_feed_data.date }}</span>
             <br><br><br>
-            <span class="problem" id="snack-btn" style="cursor: pointer">간식 버튼</span>
+            <span class="problem" id="snack-btn" style="cursor: pointer">방금 간식을 줬어요</span>
             <span id="snack_date">마지막 간식: {{ last_Snack_data.date }}</span>
 
             <br>
@@ -68,7 +68,7 @@
 
             <hr style="width: 60%;"><br>
             
-            <div style="display: flex; justify-content: left; margin-left: 5%;">
+            <div style="display: flex; justify-content: left; margin-left: 20%;">
                 <div id="map" style="width:300px;height:300px;border-radius: 30px; margin-right: 5%;"></div><!-- 지도 박스 -->
 
                 <div style="display: block; text-align: left;">
@@ -83,7 +83,7 @@
 
             <div style="display: block; text-align: center;">
                 <h4>특징</h4>
-                <p>{{cat_detail.character}}</p>
+                <p>{{cat_detail.character|linebreaks}}</p>
             </div>
         </div></center>
 
@@ -111,7 +111,7 @@
                 <br><br>
                 신고일: {{ complaint.date }}<br><br>
                 신고 종류: {{ complaint.complaint_kind }}<br><br>
-                상세 정보: {{ complaint.character }}<br><br>
+                상세 정보: {{ complaint.character|linebreaks }}<br><br>
             </div>
         {% endfor %}
         {% for injury in injury_list %}
@@ -125,7 +125,7 @@
                 <br><br>
                 신고일: {{ injury.date }}<br><br>
                 신고 종류: {{ injury.complaint_kind }}<br><br>
-                상세 정보: {{ injury.character }}<br><br>
+                상세 정보: {{ injury.character|linebreaks }}<br><br>
             </div>
         {% endfor %}
     </div>

@@ -56,9 +56,12 @@
         var cat_id = -1;
 
         function know_map_set() {
+            var a = 37.643388210851406
+            var b = 127.10764129356582
+
             var container = document.getElementById('map1');
             var options = {
-                center: new kakao.maps.LatLng(37.638596384798, 127.10767285991),
+                center: new kakao.maps.LatLng(a, b),
                 level: 3 //지도 최초 표시될 때 확대 정도
             };
             var map = new kakao.maps.Map(container, options);
@@ -147,7 +150,7 @@
                         if (data.list[i].is_marked) {
                             iwContent = `<div id="${positions[i].id}"; class="marker";>
                                             <span class="bookmark material-icons" style="float: right; color: rgb(255, 220, 21);">bookmark </span><br>
-                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 15px solid rgb(252, 187, 187);border-radius: 50%;>
+                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 12px solid rgb(252, 187, 187);border-radius: 50%;>
                                                 ${positions[i].content1}
                                             </div>
                                             ${positions[i].content2}
@@ -157,7 +160,7 @@
                         else {
                             iwContent = `<div id="${positions[i].id}"; class="marker";>
                                             <span class="bookmark material-icons" style="float: right; color: rgb(255, 220, 21);">bookmark_border </span><br>
-                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 15px solid rgb(252, 187, 187);border-radius: 50%;>
+                                            <div style="width:120px;height:120px;text-align:center;margin:6px;border: 12px solid rgb(252, 187, 187);border-radius: 50%;>
                                                 ${positions[i].content1}
                                             </div>
                                             ${positions[i].content2}

@@ -72,3 +72,8 @@ div {
   font-size : 30px;
   cursor : pointer;
 }
+
+.name{
+  font-weight: bold;
+  font-size : 25px;
+}

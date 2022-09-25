@@ -32,7 +32,7 @@ def create(request):
         post.character = request.POST['character']
         post.latitude = request.POST['latitude']
         post.longitude = request.POST['longitude']
-        photo = mask_circle_transparent(request.FILES['photo'])
+        post.photo = mask_circle_transparent(request.FILES['photo'])
         post.author = request.user
         post.save()
     return render(request,'cat_inf/create.html')

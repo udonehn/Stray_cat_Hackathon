@@ -9,7 +9,7 @@ class Cat(models.Model):
     sex = models.CharField(max_length = 100) #성별
     neutral = models.CharField(max_length = 100) #중성화 여부
     alert = models.CharField(max_length = 100) #사람 경계도
-    character = models.CharField(max_length = 100) #특징
+    character = models.TextField(null=True) #특징
     latitude = models.DecimalField(max_digits = 17, decimal_places = 13)
     longitude = models.DecimalField(max_digits = 17, decimal_places = 13)
     photo = models.ImageField(blank=True, null=True, upload_to='cat_photo')
