@@ -26,12 +26,13 @@
 
 <body>
     <!-- 어떤 고양이가 문제인지 알아요! -->
+    <h1>부상 신고</h1>
     <div id="know_cat_div" style="display: block">
         <center><div id="map1" style="width:500px;height:400px;"></div></center><!-- 지도 -->
     </div>
 
     <div>
-        <h1>부상 신고</h1>
+       
         <form method="post" action="{% url 'injury' %}" id="injury-form">
             {% csrf_token %}
             부상 종류:
