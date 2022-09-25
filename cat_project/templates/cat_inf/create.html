@@ -71,14 +71,15 @@
     <!-- 모달 -->
     <div id="modal_add_feed" class="modal_overlay">
         <div class="modal_window">
-            <span id="close_modal" class="material-icons-outlined" style="float: right;">close</span><br>
-            <div class="modal_title"><div><input name="photo" type="file" id="id_file"></div></div>
+            <div class="modal_title" style="display: block;"><input name="photo" type="file" id="id_file"></div>
             <div id="image-box" class="mb-3"></div> <!-- 사진 편집기 나오는 부분 -->
+            <center><span id="close_modal" class="add" style="display: none;">확인</span></center>
         </div>
     </div>
 
     <!-- 지도 코드 -->
     <script>
+
         var a = 37.643388210851406
         var b = 127.10764129356582
         var mapContainer = document.getElementById('map'),
