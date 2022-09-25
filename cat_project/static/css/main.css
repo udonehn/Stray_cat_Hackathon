@@ -64,13 +64,15 @@ div {
   padding:5px;
 }
 
-.check{
+.check {
   background-color : #fcbbbb;
   border : 3px solid #fca2a2;
+  border-radius: 25px;
   color : maroon;
   font-family : "Gaegu", serif;
-  font-size : 30px;
+  font-size : 25px;
   cursor : pointer;
+  margin : 10px;
 }
 
 .name{
