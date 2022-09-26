@@ -105,7 +105,9 @@ def complaint(request):
 
         return render(request,'account/main.html')
     else:
-        return render(request,'cat_inf/complaint.html')
+        default_cat_id = request.GET.get('cat_id', None)
+        content = dict(default_cat_id=default_cat_id)
+        return render(request,'cat_inf/complaint.html', content)
 
 def injury(request):
     if(request.method == 'POST'):
@@ -125,7 +127,9 @@ def injury(request):
 
         return render(request,'account/main.html')
     else:
-        return render(request,'cat_inf/injury.html')
+        default_cat_id = request.GET.get('cat_id', None)
+        content = dict(default_cat_id=default_cat_id)
+        return render(request,'cat_inf/injury.html', content)
 
 def feed(request):
     if(request.method == 'POST'):
@@ -141,7 +145,7 @@ def feed(request):
 
         ampm = date.strftime('%p')
         ampm_kr = '오전' if ampm == 'AM' else '오후'
-        hour = (date.hour+12) if ampm == 'AM' else (date.hour-12)
+        hour = (date.hour) if ampm == 'AM' else (date.hour-12)
 
         data = f'{date.year}년 {date.month}월 {date.day}일 {hour}:{date.minute} {ampm_kr}'
     return HttpResponse(data)
@@ -161,7 +165,7 @@ def snack(request):
 
         ampm = date.strftime('%p')
         ampm_kr = '오전' if ampm == 'AM' else '오후'
-        hour = (date.hour+12) if ampm == 'AM' else (date.hour-12)
+        hour = (date.hour) if ampm == 'AM' else (date.hour-12)
 
         data = f'{date.year}년 {date.month}월 {date.day}일 {hour}:{date.minute} {ampm_kr}'
     return HttpResponse(data)

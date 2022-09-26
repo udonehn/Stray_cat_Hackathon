@@ -59,8 +59,9 @@
             <textarea rows="5" cols="30" name="character" placeholder="상세설명, 기타 사항을 적어주세요" id="textarea"></textarea>
             <br><br>
 
-            <input id="latitude" name="latitude" type="hidden" value=37.6385963847980> <!-- 위도 보내는 부분 -->
-            <input id="longitude" name="longitude" type="hidden" value=127.1076728599100> <!-- 경도 보내는 부분 -->
+            <input id="latitude" name="latitude" type="hidden" value=37.643388210851406> <!-- 위도 보내는 부분 -->
+            <input id="longitude" name="longitude" type="hidden" value=127.10764129356582> <!-- 경도 보내는 부분 -->
+            <input id="default_cat_id" name="default_cat_id" type="hidden" value={{default_cat_id}}> <!-- 디폴트 아이디 -->
         </form>
         <span id="confirm-btn" class="submit" style="cursor: pointer" input type="submit">등록</span>
 
@@ -71,7 +72,8 @@
         var cat_id = -1;
         var a = 37.643388210851406
         var b = 127.10764129356582
-
+        var default_cat_id = $('input[name=default_cat_id]').val();
+        
         function know_map_set() {
             var container = document.getElementById('map1');
             var options = {
@@ -136,7 +138,7 @@
                 }]
             });
 
-            var imageSize = new kakao.maps.Size(33, 33); // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(50, 50); // 마커 이미지의 이미지 크기 입니다
             var infowindow_list = [];
             $.ajax({
                 url: "{% url 'getApi_marked' %}",
@@ -191,6 +193,10 @@
                         // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
                         kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow, de));
 
+                        if(default_cat_id == de){
+                            infowindow.open(map, marker);
+                        }
+                        
                         markers.push(marker);
                     }
                     clusterer.addMarkers(markers);
@@ -198,6 +204,8 @@
                 error: function (request, status, error) {
                     console.log('실패22');
                 }
+
+                
             });
 
 
@@ -210,7 +218,7 @@
                     cat_id = de;
                     //console.log(cat_id)
                 };
-            }
+            };
         }
 
         function dont_know_map_set() {
@@ -317,7 +325,7 @@
                     data: fd,
                     success: function (response) {
                         console.log('success')
-                        //location.replace('http://127.0.0.1:8000/'); 
+                        location.replace(document.referrer); 
                     },
                     error: function (error) {
                         console.log('error', error)

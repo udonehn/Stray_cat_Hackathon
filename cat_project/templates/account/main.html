@@ -27,15 +27,14 @@
 </head>
 
 <body>
-    <a href="{% url 'url_test' %}">url_test</a>
-    <!--{{ cat_list.1.name }} -->
+
     <h1>STRAY CAT</h1>
     <h2>GATHER THE CAT!</h2>
     <p>사용자의 지역에 사는 길고양이를 등록하고 <br>다른 사용자들과 공동체를 형성하여<br> 체계화된 길고양이 양육을 할 수 있는 플랫폼 서비스
     </p>
     {% if user.is_authenticated %}
     <div>환영합니다 {{user.name}}님</div>
-    <a href="{% url 'logout' %}">로그아웃</a>
+    <a href="{% url 'logout' %}">로그아웃</a><span>ㅤㅤㅤ</span><a href="{% url 'mypage' %}">마이페이지</a>
     {% else %}
     <a href="{% url 'login' %}">로그인</a>
     {% endif %}
@@ -139,8 +138,8 @@
                     var de = Number(positions[i].id)
                     var iwContent;
                     if (data.list[i].is_marked) {
-                            iwContent = `<div id="${positions[i].id}"; class="marker";>
-                                <span class="bookmark material-icons" style="float: left; color: rgb(255, 220, 21);">bookmark </span><br>
+                            iwContent = `<div class="marker";>
+                                            <span id="${positions[i].id}" class="bookmark material-icons" style="float: left; color: rgb(255, 220, 21);">bookmark </span><br>
                                             <div style="width:120px;height:120px;text-align:center;margin:6px;border: 12px solid rgb(252, 187, 187);border-radius: 50%;>
                                                 ${positions[i].content1}
                                             </div>
@@ -149,8 +148,8 @@
                                         </div>` // 도와줘요, 여기 check가 안먹음 submit저럼 현재 선택됨 부분을 동그랗게 만들고 싶어
                         }
                         else {
-                            iwContent = `<div id="${positions[i].id}"; class="marker";>
-                                <span class="bookmark material-icons" style="float: left; color: rgb(255, 220, 21);">bookmark_border </span><br>
+                            iwContent = `<div class="marker";>
+                                            <span id="${positions[i].id}" class="bookmark material-icons" style="float: left; color: rgb(255, 220, 21);">bookmark_border </span><br>
                                             <div style="width:120px;height:120px;text-align:center;margin:6px;border: 12px solid rgb(252, 187, 187);border-radius: 50%;>
                                                 ${positions[i].content1}
                                             </div>
@@ -239,7 +238,8 @@
 
     <br><br><br>
     {% if user.is_authenticated %}
-    <a href="{% url 'create' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 -->
+    <a href="{% url 'create' %}">고양이 생성 페이지</a> <!-- 고양이 생성 페이지 링크 --><br>
+    <a href="{% url 'complaint' %}">민원 신고</a>
     {% endif %}
 </body>
 

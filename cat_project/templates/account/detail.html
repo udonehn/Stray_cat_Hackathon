@@ -63,8 +63,8 @@
             <span id="snack_date">마지막 간식: {{ last_Snack_data.date }}</span>
 
             <br>
-            <a href="{% url 'injury' %}">부상 신고</a>&nbsp&nbsp
-            <a href="{% url 'complaint' %}">민원 신고</a><br><br>
+            <a href="{% url 'injury' %}?cat_id={{cat_detail.pk}}">부상 신고</a>&nbsp&nbsp
+            <a href="{% url 'complaint' %}?cat_id={{cat_detail.pk}}">민원 신고</a><br><br>
 
             <hr style="width: 60%;"><br>
             
@@ -124,7 +124,7 @@
                 {% endif %}
                 <br><br>
                 신고일: {{ injury.date }}<br><br>
-                신고 종류: {{ injury.complaint_kind }}<br><br>
+                신고 종류: {{ injury.injury_kind }}<br><br>
                 상세 정보: {{ injury.character|linebreaks }}<br><br>
             </div>
         {% endfor %}
